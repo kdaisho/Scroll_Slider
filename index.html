@@ -212,21 +212,7 @@ document.addEventListener('DOMContentLoaded', function() {
 			scAmount = (window.pageYOffset - parseInt(startingY))/5;
 			newCSSprop = imageHeight - scAmount;
 			imgCont_01.style.height = parseInt(newCSSprop) + '%';
-			if (scrollDir == 'down' && (scAmount >= 100)) {
-				console.log('end of animation');
-				leaveDir(scrollDir);
-				resetImageHeight();
-				isCrossed = false;
-				scAmount = 0;
-				overlay.style.display = 'none';
-				removeStyle(container);
-				if (!reverse) {
-					is01done = true;
-				}
-				isAnimate = false;
-				container.scrollIntoView();
-			}
-			if (scrollDir == 'up' && (scAmount <= -100)) {
+			if (scAmount >= 100 || scAmount <= -100) {
 				console.log('end of animation');
 				leaveDir(scrollDir);
 				resetImageHeight();
