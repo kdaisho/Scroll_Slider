@@ -113,7 +113,6 @@ document.addEventListener('DOMContentLoaded', function() {
 		innerH,
 		rect,
 		startingY = 0,
-		endingY = 0,
 		scAmount,
 		scrollDir,
 		CSSprop,
@@ -200,7 +199,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		}
 	}
 
-	function scroll(scrollPos, scrollDir) {
+	function scroll() {
 		if (!isPassed && isCrossed && !is01done) {
 			overlay.style.display = 'block';
 			addStyle(container);
@@ -208,13 +207,10 @@ document.addEventListener('DOMContentLoaded', function() {
 				startingY = window.pageYOffset;
 				isAnimate = true;
 			}
-			if (scrollDir == 'down' || scrollDir == 'up') {
-				scAmount = window.pageYOffset - parseInt(startingY);
-				scAmount = scAmount/10;
-				newCSSprop = imageHeight - scAmount;
-				endingY = scAmount;
-			}
-			
+
+			scAmount = window.pageYOffset - parseInt(startingY);
+			scAmount = scAmount/10;
+			newCSSprop = imageHeight - scAmount;
 			imgCont_01.style.height = parseInt(newCSSprop) + '%';
 			if (scAmount >= 100 || scAmount <= -100) {
 				console.log('end of animation');
@@ -234,7 +230,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
 	window.addEventListener('wheel', function() {
 		currYPos = supportOffset ? window.pageYOffset : document.body.scrollTop;
-		// currYPos = document.body.scrollTop;
 		rect = container.getBoundingClientRect();
 		scrollDir = lastKnownPos > currYPos ? 'up' : 'down';
 		detectIfcrossed();
@@ -243,7 +238,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		detectIfcrossedOnce();
 		if (!ticking) {
 			window.requestAnimationFrame(function() {
-				scroll(lastKnownPos, scrollDir);
+				scroll();
 				ticking = false;
 			});
 		}
