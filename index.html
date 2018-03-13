@@ -118,17 +118,17 @@ document.addEventListener('DOMContentLoaded', function() {
 		CSSprop,
 		newCSSprop,
 		isAnimate = false,
-		isPassed;
-	var supportOffset = window.pageYOffset !== undefined,
+		isPassed,
+		supportOffset = window.pageYOffset !== undefined,
 		lastKnownPos = 0,
 		ticking = false,
 		scrollDir,
 		currYPos,
-		is01done = false;
-	var lastY,
-		isCrossed = false;
-	var imageHeight = 100;
-	var reverse = false;
+		is01done = false,
+		lastY,
+		isCrossed = false,
+		imageHeight = 100,
+		reverse = false;
 
 	$(window).on("load resize", function() {
 		console.log(supportOffset);
@@ -188,7 +188,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		}
 	}
 
-	function leaveDir(scrollDir) {
+	function setLastDirection(scrollDir) {
 		if (scrollDir == 'up') {
 			reverse = true;
 			console.log('Reverse (up): ' + reverse);
@@ -206,15 +206,15 @@ document.addEventListener('DOMContentLoaded', function() {
 			if (isAnimate == false) {
 				startingY = window.pageYOffset;
 				isAnimate = true;
-				console.count();
 			}
 
 			scAmount = (window.pageYOffset - parseInt(startingY))/5;
 			newCSSprop = imageHeight - scAmount;
 			imgCont_01.style.height = parseInt(newCSSprop) + '%';
+
 			if (scAmount >= 100 || scAmount <= -100) {
 				console.log('end of animation');
-				leaveDir(scrollDir);
+				setLastDirection(scrollDir);
 				resetImageHeight();
 				isCrossed = false;
 				scAmount = 0;
@@ -234,7 +234,6 @@ document.addEventListener('DOMContentLoaded', function() {
 		rect = container.getBoundingClientRect();
 		scrollDir = lastKnownPos > currYPos ? 'up' : 'down';
 		detectIfcrossed();
-		// console.log('SCrollDir: ' + scrollDir + ', LAstKnownPos: ' + lastKnownPos);
 		lastKnownPos = currYPos;
 		detectIfcrossedOnce();
 		if (!ticking) {
