@@ -128,51 +128,44 @@ document.addEventListener('DOMContentLoaded', function() {
 		isPassed;
 	var supportOffset = window.pageYOffset !== undefined,
 		lastKnownPos = 0,
-		lastKnownPos2 = 0,
 		ticking = false,
 		scrollDir,
-		currYPos;
-	var set = false,
+		currYPos,
 		is01done = false;
 	var lastY,
 		isCrossed = false;
 	var imageHeight = 100;
 	var reverse = false;
+
 	$(window).on("load resize", function() {
+		console.log(supportOffset);
 		setHeight();
 		var __rect = container.getBoundingClientRect();
 		lastY = __rect.y;
 		evalIfpassed(__rect.y);
 		console.log('isPassed on load? ' + isPassed);
-		init();
+		// init();
 	});
-	var toggled = false;
-	function toggleElement() {
-		if (!toggled) {
-			dest.appendChild(container);
-			toggled = true;
-		}
-		else {
-			defaultContainer.appendChild(container);
-			toggle = false;
-		}
-	}
+
 	function addStyle(ele) {
 		ele.style.position = 'fixed';
 		ele.style.left = '50%';
 		ele.style.transform = 'translate(-50%, 0)';
 	}
+
 	function removeStyle(ele) {
 		ele.style.position = 'relative';
 		ele.style.left = 0;
 		ele.style.transform = 'none';
 	}
+
 	function setHeight() {
 		innerH = window.innerHeight;
 		img01.style.height = innerH + 'px';
 		img01Cont.style.height = innerH + 'px';
 		container.style.height = innerH + 'px';
 	}
+
 	function resetImageHeight() {
 		if (!reverse) {
 			imageHeight = 0;
@@ -181,9 +174,11 @@ document.addEventListener('DOMContentLoaded', function() {
 			imageHeight = 100;
 		}
 	}
+
 	function evalIfpassed(value) {
 		isPassed = value < 0 ? true : false;
 	}
+
 	function detectIfcrossed() {
 		if (!is01done && !isPassed && rect.y < 0 && scrollDir == 'down') {
 			isCrossed = true;
@@ -194,11 +189,13 @@ document.addEventListener('DOMContentLoaded', function() {
 			is01done = false;
 		}
 	}
+
 	function detectIfcrossedOnce() {
 		if ((lastY > 0 && rect.y < 0) || (lastY < 0 && rect.y > 0)) {
 			isPassed = false;
 		}
 	}
+
 	function leaveDir(scrollDir) {
 		if (scrollDir == 'up') {
 			reverse = true;
@@ -209,11 +206,10 @@ document.addEventListener('DOMContentLoaded', function() {
 			console.log('Reverse (down): ' + reverse);
 		}
 	}
-	function init() {
+
+	// function init() {
 		function doSomething(scrollPos, scrollDir) {
-			console.log('ISCR2 ' + isCrossed);
 			if (!isPassed && isCrossed && !is01done) {
-				console.log('!CROSSED');
 				overlay.style.display = 'block';
 				addStyle(container);
 				if (isAnimate == false) {
@@ -222,18 +218,12 @@ document.addEventListener('DOMContentLoaded', function() {
 				}
 				if (scrollDir == 'down' || scrollDir == 'up') {
 					scAmount = window.scrollY - parseInt(startingY);
-					console.log('?imageHeight ' + imageHeight);
 					scAmount = scAmount/10;
 					newCSSprop = imageHeight - scAmount;
 					endingY = scAmount;
-					console.log('SC ' + newCSSprop);
-					console.log('HEIGHT ' + img01Cont.style.height);
 				}
 				
 				img01Cont.style.height = parseInt(newCSSprop) + '%';
-				console.log('!!img01Cont.style.height: ' + img01Cont.style.height);
-				console.log('!!scAmount: ' + scAmount);
-				console.log('!!innerH: ' + innerH);
 				if (isAnimate && (scAmount >= 100 || scAmount <= -100)) {
 					console.log('end of animation');
 					leaveDir(scrollDir);
@@ -249,6 +239,7 @@ document.addEventListener('DOMContentLoaded', function() {
 				}
 			}
 		}
+
 		window.addEventListener('wheel', function() {
 			currYPos = supportOffset ? window.pageYOffset : document.body.scrollTop;
 			rect = container.getBoundingClientRect();
@@ -256,7 +247,6 @@ document.addEventListener('DOMContentLoaded', function() {
 			detectIfcrossed();
 			console.log('SCrollDir: ' + scrollDir + ', LAstKnownPos: ' + lastKnownPos);
 			lastKnownPos = currYPos;
-			lastKnownPos2 = currYPos;
 			detectIfcrossedOnce();
 			if (!ticking) {
 				window.requestAnimationFrame(function() {
@@ -269,7 +259,7 @@ document.addEventListener('DOMContentLoaded', function() {
 			capture: true,
 			passive: true
 		});
-	}
+	// }
 });
 </script>
 
