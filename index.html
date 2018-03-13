@@ -84,12 +84,8 @@ html, body {
 
 <article class="use-fluid-grid">
 
-    <!-- <div class="otherElements">
+    <div class="otherElements">
 		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-	</div> -->
-
-	<div class="otherElements">
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit.
 	</div>
 	
 	<div id="overlay" class="overlay" style="display: none;"></div>
@@ -140,7 +136,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		is01done = false;
 	var lastY,
 		isCrossed = false;
-	var cc = 100;
+	var imageHeight = 100;
 	var reverse = false;
 	$(window).on("load resize", function() {
 		setHeight();
@@ -163,19 +159,13 @@ document.addEventListener('DOMContentLoaded', function() {
 	}
 	function addStyle(ele) {
 		ele.style.position = 'fixed';
-		// ele.style.maxWidth = '900px';
 		ele.style.left = '50%';
-		// ele.style.bottom = 0;
 		ele.style.transform = 'translate(-50%, 0)';
-		// ele.style.width = '100%';
 	}
 	function removeStyle(ele) {
 		ele.style.position = 'relative';
-		// ele.style.maxWidth = '900px';
 		ele.style.left = 0;
-		// ele.style.bottom = 0;
 		ele.style.transform = 'none';
-		// ele.style.width = '100%';
 	}
 	function setHeight() {
 		innerH = window.innerHeight;
@@ -183,12 +173,12 @@ document.addEventListener('DOMContentLoaded', function() {
 		img01Cont.style.height = innerH + 'px';
 		container.style.height = innerH + 'px';
 	}
-	function setCC() {
+	function resetImageHeight() {
 		if (!reverse) {
-			cc = 0;
+			imageHeight = 0;
 		}
 		else {
-			cc = 100;
+			imageHeight = 100;
 		}
 	}
 	function evalIfpassed(value) {
@@ -225,7 +215,6 @@ document.addEventListener('DOMContentLoaded', function() {
 			if (!isPassed && isCrossed && !is01done) {
 				console.log('!CROSSED');
 				overlay.style.display = 'block';
-				// container.style.position = 'fixed';
 				addStyle(container);
 				if (isAnimate == false) {
 					startingY = window.scrollY;
@@ -233,9 +222,9 @@ document.addEventListener('DOMContentLoaded', function() {
 				}
 				if (scrollDir == 'down' || scrollDir == 'up') {
 					scAmount = window.scrollY - parseInt(startingY);
-					console.log('?cc ' + cc);
+					console.log('?imageHeight ' + imageHeight);
 					scAmount = scAmount/10;
-					newCSSprop = cc - scAmount;
+					newCSSprop = imageHeight - scAmount;
 					endingY = scAmount;
 					console.log('SC ' + newCSSprop);
 					console.log('HEIGHT ' + img01Cont.style.height);
@@ -248,11 +237,10 @@ document.addEventListener('DOMContentLoaded', function() {
 				if (isAnimate && (scAmount >= 100 || scAmount <= -100)) {
 					console.log('end of animation');
 					leaveDir(scrollDir);
-					setCC();
+					resetImageHeight();
 					isCrossed = false;
 					scAmount = 0;
 					overlay.style.display = 'none';
-					// container.style.position = 'relative';
 					removeStyle(container);
 					if (!reverse) {
 						is01done = true;
