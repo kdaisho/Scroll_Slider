@@ -32,18 +32,18 @@ html, body {
 	padding: 30px 0;
 	width: 100%;
 }
-#defaultContainer {
+.parentContainer {
+	position: relative;
 	margin: 0 auto;
-	max-width: 960px;
+	max-width: 1920px;
 	width: 100%;
 }
 .container {
-	/*margin: 0 auto 100px;*/
 	position: relative;
 	left: 0;
 	top: 0;
 	width: 100%;
-	max-width: 960px;
+	max-width: 1920px;
 	z-index: 10;
 }
 .panel {
@@ -56,21 +56,18 @@ html, body {
 	width: 100%;
 }
 .panel__01 {
-	/*background: url('RW_CA/2018/spring/Test_Images/polo-01.jpg') no-repeat top center;*/
-	background: url('https://picsum.photos/1200/400/') no-repeat top center;
+	background: url('https://picsum.photos/1000/300/') no-repeat top center;
 	background-size: cover;
 	height: 100%;
 	z-index: 20;
 }
 .panel__02 {
-	/*background: url('RW_CA/2018/spring/Test_Images/polo-02.jpg') no-repeat top center;*/
-	background: url('https://picsum.photos/1200/400/?random') no-repeat top center;
+	background: url('https://picsum.photos/1000/300/?random') no-repeat top center;
 	background-size: cover;
 	height: 100%;
 	z-index: 10;
 }
 .overlay {
-	/*background: #000;*/
 	background: #fff;
 	height: 9999px;
 	left: 0;
@@ -85,27 +82,25 @@ html, body {
 <article class="use-fluid-grid">
 
     <div class="otherElements">
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+		 sunt in culpa qui officia deserunt mollit anim id est laborum ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. sunt in culpa qui officia deserunt mollit anim id est laborum ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 	</div>
 	
 	<div id="overlay" class="overlay" style="display: none;"></div>
 
-	<div id="defaultContainer" style="position: relative; ">
+	<div id="parentContainer" class="parentContainer">
 		<div id="container" class="container">
-			<div id="img02Cont" class="panel panel--02">
+			<div id="imgCont_02" class="panel panel--02">
 				<div id="img02" class="panel__02"></div>
 			</div>
-			<div id="img01Cont" class="panel panel--01" style="">
+			<div id="imgCont_01" class="panel panel--01">
 				<div id="img01" class="panel__01"></div>
 			</div>
 		</div>
 	</div>
 
-
 	<div class="otherElements">
 		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 	</div>
-
 
 </article>
 
@@ -113,9 +108,8 @@ html, body {
 document.addEventListener('DOMContentLoaded', function() {
 	var img01 = document.getElementById('img01'),
 		container = document.getElementById('container'),
-		img01Cont = document.getElementById('img01Cont'),
+		imgCont_01 = document.getElementById('imgCont_01'),
 		overlay = document.getElementById('overlay'),
-		defaultContainer = document.getElementById('defaultContainer'),
 		innerH,
 		rect,
 		startingY = 0,
@@ -144,7 +138,6 @@ document.addEventListener('DOMContentLoaded', function() {
 		lastY = __rect.y;
 		evalIfpassed(__rect.y);
 		console.log('isPassed on load? ' + isPassed);
-		// init();
 	});
 
 	function addStyle(ele) {
@@ -162,7 +155,7 @@ document.addEventListener('DOMContentLoaded', function() {
 	function setHeight() {
 		innerH = window.innerHeight;
 		img01.style.height = innerH + 'px';
-		img01Cont.style.height = innerH + 'px';
+		imgCont_01.style.height = innerH + 'px';
 		container.style.height = innerH + 'px';
 	}
 
@@ -207,59 +200,57 @@ document.addEventListener('DOMContentLoaded', function() {
 		}
 	}
 
-	// function init() {
-		function doSomething(scrollPos, scrollDir) {
-			if (!isPassed && isCrossed && !is01done) {
-				overlay.style.display = 'block';
-				addStyle(container);
-				if (isAnimate == false) {
-					startingY = window.scrollY;
-					isAnimate = true;
+	function scroll(scrollPos, scrollDir) {
+		if (!isPassed && isCrossed && !is01done) {
+			overlay.style.display = 'block';
+			addStyle(container);
+			if (isAnimate == false) {
+				startingY = window.scrollY;
+				isAnimate = true;
+			}
+			if (scrollDir == 'down' || scrollDir == 'up') {
+				scAmount = window.scrollY - parseInt(startingY);
+				scAmount = scAmount/10;
+				newCSSprop = imageHeight - scAmount;
+				endingY = scAmount;
+			}
+			
+			imgCont_01.style.height = parseInt(newCSSprop) + '%';
+			if (scAmount >= 100 || scAmount <= -100) {
+				console.log('end of animation');
+				leaveDir(scrollDir);
+				resetImageHeight();
+				isCrossed = false;
+				scAmount = 0;
+				overlay.style.display = 'none';
+				removeStyle(container);
+				if (!reverse) {
+					is01done = true;
 				}
-				if (scrollDir == 'down' || scrollDir == 'up') {
-					scAmount = window.scrollY - parseInt(startingY);
-					scAmount = scAmount/10;
-					newCSSprop = imageHeight - scAmount;
-					endingY = scAmount;
-				}
-				
-				img01Cont.style.height = parseInt(newCSSprop) + '%';
-				if (isAnimate && (scAmount >= 100 || scAmount <= -100)) {
-					console.log('end of animation');
-					leaveDir(scrollDir);
-					resetImageHeight();
-					isCrossed = false;
-					scAmount = 0;
-					overlay.style.display = 'none';
-					removeStyle(container);
-					if (!reverse) {
-						is01done = true;
-					}
-					container.scrollIntoView();
-				}
+				container.scrollIntoView();
 			}
 		}
+	}
 
-		window.addEventListener('wheel', function() {
-			currYPos = supportOffset ? window.pageYOffset : document.body.scrollTop;
-			rect = container.getBoundingClientRect();
-			scrollDir = lastKnownPos > currYPos ? 'up' : 'down';
-			detectIfcrossed();
-			console.log('SCrollDir: ' + scrollDir + ', LAstKnownPos: ' + lastKnownPos);
-			lastKnownPos = currYPos;
-			detectIfcrossedOnce();
-			if (!ticking) {
-				window.requestAnimationFrame(function() {
-					doSomething(lastKnownPos, scrollDir);
-					ticking = false;
-				});
-			}
-			ticking = true;
-		}, {
-			capture: true,
-			passive: true
-		});
-	// }
+	window.addEventListener('wheel', function() {
+		currYPos = supportOffset ? window.pageYOffset : document.body.scrollTop;
+		rect = container.getBoundingClientRect();
+		scrollDir = lastKnownPos > currYPos ? 'up' : 'down';
+		detectIfcrossed();
+		console.log('SCrollDir: ' + scrollDir + ', LAstKnownPos: ' + lastKnownPos);
+		lastKnownPos = currYPos;
+		detectIfcrossedOnce();
+		if (!ticking) {
+			window.requestAnimationFrame(function() {
+				scroll(lastKnownPos, scrollDir);
+				ticking = false;
+			});
+		}
+		ticking = true;
+	}, {
+		capture: true,
+		passive: true
+	});
 });
 </script>
 
