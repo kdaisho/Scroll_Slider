@@ -205,11 +205,11 @@ document.addEventListener('DOMContentLoaded', function() {
 			overlay.style.display = 'block';
 			addStyle(container);
 			if (isAnimate == false) {
-				startingY = window.scrollY;
+				startingY = window.pageYOffset;
 				isAnimate = true;
 			}
 			if (scrollDir == 'down' || scrollDir == 'up') {
-				scAmount = window.scrollY - parseInt(startingY);
+				scAmount = window.pageYOffset - parseInt(startingY);
 				scAmount = scAmount/10;
 				newCSSprop = imageHeight - scAmount;
 				endingY = scAmount;
@@ -234,6 +234,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 	window.addEventListener('wheel', function() {
 		currYPos = supportOffset ? window.pageYOffset : document.body.scrollTop;
+		// currYPos = document.body.scrollTop;
 		rect = container.getBoundingClientRect();
 		scrollDir = lastKnownPos > currYPos ? 'up' : 'down';
 		detectIfcrossed();
