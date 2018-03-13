@@ -206,13 +206,13 @@ document.addEventListener('DOMContentLoaded', function() {
 			if (isAnimate == false) {
 				startingY = window.pageYOffset;
 				isAnimate = true;
+				console.count();
 			}
 
-			scAmount = window.pageYOffset - parseInt(startingY);
-			scAmount = scAmount/10;
+			scAmount = (window.pageYOffset - parseInt(startingY))/5;
 			newCSSprop = imageHeight - scAmount;
 			imgCont_01.style.height = parseInt(newCSSprop) + '%';
-			if (scAmount >= 100 || scAmount <= -100) {
+			if (scrollDir == 'down' && (scAmount >= 100)) {
 				console.log('end of animation');
 				leaveDir(scrollDir);
 				resetImageHeight();
@@ -223,6 +223,21 @@ document.addEventListener('DOMContentLoaded', function() {
 				if (!reverse) {
 					is01done = true;
 				}
+				isAnimate = false;
+				container.scrollIntoView();
+			}
+			if (scrollDir == 'up' && (scAmount <= -100)) {
+				console.log('end of animation');
+				leaveDir(scrollDir);
+				resetImageHeight();
+				isCrossed = false;
+				scAmount = 0;
+				overlay.style.display = 'none';
+				removeStyle(container);
+				if (!reverse) {
+					is01done = true;
+				}
+				isAnimate = false;
 				container.scrollIntoView();
 			}
 		}
@@ -233,7 +248,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		rect = container.getBoundingClientRect();
 		scrollDir = lastKnownPos > currYPos ? 'up' : 'down';
 		detectIfcrossed();
-		console.log('SCrollDir: ' + scrollDir + ', LAstKnownPos: ' + lastKnownPos);
+		// console.log('SCrollDir: ' + scrollDir + ', LAstKnownPos: ' + lastKnownPos);
 		lastKnownPos = currYPos;
 		detectIfcrossedOnce();
 		if (!ticking) {
