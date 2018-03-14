@@ -127,7 +127,6 @@ document.addEventListener('DOMContentLoaded', function() {
 		scAmount,
 		scrollDir,
 		CSSprop,
-		newCSSprop,
 		isAnimate = false,
 		isPassed,
 		supportOffset = window.pageYOffset !== undefined,
@@ -215,8 +214,8 @@ document.addEventListener('DOMContentLoaded', function() {
 			}
 
 			scAmount = (window.pageYOffset - parseInt(startingY))/5;
-			newCSSprop = imageHeight - scAmount;
-			imgCont_01.style.height = parseInt(newCSSprop) + '%';
+			CSSprop = imageHeight - scAmount;
+			imgCont_01.style.height = parseInt(CSSprop) + '%';
 
 			if ((lasthit === 'top' && (scAmount >= 100 || scAmount <= -1)) || (lasthit === 'bottom' && (scAmount >= 1 || scAmount <= -100))) {
 				setStyles(container, 'relative', 50, -50);
