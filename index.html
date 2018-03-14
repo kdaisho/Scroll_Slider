@@ -185,19 +185,21 @@ document.addEventListener('DOMContentLoaded', function() {
 		}
 	}
 
-	function setLeavingDirection(scrollDir) {
-		if (scrollDir == 'up') {
-			reverse = true;
-			console.log('Reverse (up): ' + reverse);
-		}
-		else if (scrollDir == 'down') {
-			reverse = false;
-			console.log('Reverse (down): ' + reverse);
-		}
+	function setLeavingDirection() {
+		// if (scrollDir == 'up') {
+		// 	reverse = true;
+		// 	console.log('Reverse (up): ' + reverse);
+		// }
+		// else if (scrollDir == 'down') {
+		// 	reverse = false;
+		// 	console.log('Reverse (down): ' + reverse);
+		// }
+
+		reverse = scrollDir === 'up' ? true : false;
 	}
 
 	function releaseSlide() {
-		setLeavingDirection(scrollDir);
+		setLeavingDirection();
 
 		imageHeight = !reverse ? 0 : 100;
 
