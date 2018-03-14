@@ -139,10 +139,11 @@ document.addEventListener('DOMContentLoaded', function() {
 		scrollYonLoad,
 		isCrossed = false,
 		imageHeight = 100,
-		reverse = false;
+		reverse = false,
+		lasthit;
 
 	$(window).on("load resize", function() {
-		setHeight();
+		setHeight(img01, imgCont_01, container);
 		rect = container.getBoundingClientRect();
 		scrollYonLoad = rect.top;
 		evalIfpassed(rect.top);
@@ -155,17 +156,17 @@ document.addEventListener('DOMContentLoaded', function() {
 		el.style.transform = 'translate(' + transformValue + '%, 0)';
 	}
 
-	function setHeight() {
+	function setHeight(img, imgContainer, container) {
 		innerH = window.innerHeight;
-		img01.style.height = innerH + 'px';
-		imgCont_01.style.height = innerH + 'px';
+		img.style.height = innerH + 'px';
+		imgContainer.style.height = innerH + 'px';
 		container.style.height = innerH + 'px';
 	}
 
 	function evalIfpassed(value) {
 		isPassed = value < 0 ? true : false;
 	}
-	var lasthit;
+
 	function detectIfcrossed() {
 		if (!is01done && !isPassed && rect.top < 0 && scrollDir == 'down') {
 			isCrossed = true;
@@ -185,22 +186,8 @@ document.addEventListener('DOMContentLoaded', function() {
 		}
 	}
 
-	function setLeavingDirection() {
-		// if (scrollDir == 'up') {
-		// 	reverse = true;
-		// 	console.log('Reverse (up): ' + reverse);
-		// }
-		// else if (scrollDir == 'down') {
-		// 	reverse = false;
-		// 	console.log('Reverse (down): ' + reverse);
-		// }
-
-		reverse = scrollDir === 'up' ? true : false;
-	}
-
 	function releaseSlide() {
-		setLeavingDirection();
-
+		reverse = scrollDir === 'up' ? true : false;
 		imageHeight = !reverse ? 0 : 100;
 
 		overlay.style.display = 'none';
