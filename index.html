@@ -165,20 +165,14 @@ document.addEventListener('DOMContentLoaded', function() {
 		setDefaultHeight([img01, imgCont_01, img02, imgCont_02, container]);
 		rect = container.getBoundingClientRect();
 		scrollYonLoad = rect.top;
-		evalIfPassed(rect.top);
+		isPassed = rect.top < 0 ? true : false;
 		console.log('isPassed on load? ' + isPassed);
-		// console.log('isPassed on load? ' + evalIfPassed(rect.top));
 	});
 
 	function setDefaultHeight(arr) {
 		for (var i = 0, innerH = window.innerHeight, len = arr.length; i < len; i++) {
 			arr[i].style.height = innerH + 'px';
 		}
-	}
-
-	function evalIfPassed(value) {
-		isPassed = value < 0 ? true : false;
-		// return value < 0 ? true : false;
 	}
 
 	function detectIfcrossed() {
