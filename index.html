@@ -56,13 +56,13 @@ html, body {
 	width: 100%;
 }
 .panel__01 {
-	background: url('https://picsum.photos/1000/300/') no-repeat top center;
+	background: url('images/image-01.jpg') no-repeat top center;
 	background-size: cover;
 	height: 100%;
 	z-index: 20;
 }
 .panel__02 {
-	background: url('https://picsum.photos/1000/300/?random') no-repeat top center;
+	background: url('images/image-02.jpg') no-repeat top center;
 	background-size: cover;
 	height: 100%;
 	z-index: 10;
@@ -179,12 +179,6 @@ document.addEventListener('DOMContentLoaded', function() {
 		isPassed = false;
 	}
 
-	function detectIfcrossedOnce() {
-		if ((scrollYonLoad > 0 && rect.top < 0) || (scrollYonLoad < 0 && rect.top > 0)) {
-			isPassed = false;
-		}
-	}
-
 	function releaseSlide() {
 		reverse = scrollDir === 'up' ? true : false;
 		imageHeight = !reverse ? 0 : 100;
@@ -228,9 +222,8 @@ document.addEventListener('DOMContentLoaded', function() {
 		currYPos = supportOffset ? window.pageYOffset : document.body.scrollTop;
 		rect = container.getBoundingClientRect();
 		scrollDir = lastKnownPos > currYPos ? 'up' : 'down';
-		detectIfcrossed();
 		lastKnownPos = currYPos;
-		detectIfcrossedOnce();
+		detectIfcrossed();
 		if (!ticking) {
 			window.requestAnimationFrame(function() {
 				slide();
