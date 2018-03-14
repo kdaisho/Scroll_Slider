@@ -244,7 +244,8 @@ document.addEventListener('DOMContentLoaded', function() {
 				}
 			}
 
-var scAmount2;
+			var scAmount2,
+				scAmount3;
 
 			if (counter == 1 && lasthit == 'top') {
 				CSSprop = 100;
@@ -278,20 +279,6 @@ var scAmount2;
 				indicator.innerHTML += ' :2counter ' + counter + '<br>';
 
 				indicator.innerHTML += ' :scAmount ' + scAmount + '<br>';
-
-				// if (counter == 1 && parseInt(imgCont_02.style.height) >= 100) {
-				// 	counter = 0;
-				// 	console.log('Turns 0 ' + CSSprop);
-				// 	scAmount3 = scAmount + 200;
-				// 	console.log('scAmount3 ' + scAmount3);
-				// 	// CSSprop = 100 - scAmount3;
-				// 	CSSprop = scAmount3 - 100;
-				// 	CSSprop = Math.abs(CSSprop);
-				// 	console.log('Last CSSprop ' + CSSprop);
-
-				// 	// CSSprop = CSSprop - 100;
-				// 	imgCont_01.style.height = parseInt(CSSprop) + '%';
-				// }
 			}
 
 			if (counter == 1 && parseInt(imgCont_02.style.height) >= 100) {
@@ -299,15 +286,6 @@ var scAmount2;
 				console.log('Turns 0 ' + CSSprop);
 
 				indicator.innerHTML += ' :scAmount ' + scAmount + '<br>';
-				// scAmount3 = scAmount + 200;
-				// console.log('scAmount3 ' + scAmount3);
-				// CSSprop = 100 - scAmount3;
-				// CSSprop = scAmount3 - 100;
-				// CSSprop = Math.abs(CSSprop);
-				// console.log('Last CSSprop ' + CSSprop);
-
-				// // CSSprop = CSSprop - 100;
-				// imgCont_01.style.height = parseInt(CSSprop) + '%';
 			}
 
 			if (counter == 0 && lasthit == 'bottom') {
@@ -321,7 +299,6 @@ var scAmount2;
 				scAmount = scAmount3 - 100;
 
 				CSSprop = CSSprop - 100;
-				// imgCont_01.style.height = 0;
 				imgCont_01.style.height = parseInt(CSSprop) + '%';
 
 				if (scAmount >= -99) {
@@ -330,8 +307,6 @@ var scAmount2;
 					CSSprop = Math.abs(CSSprop);
 					CSSprop = 100 - CSSprop;
 					indicator.innerHTML += ' :CSSPROP ' + CSSprop + '<br>';
-					// CSSprop = 0 - CSSprop;
-					// indicator.innerHTML += ' :CSSPROP ' + CSSprop + '<br>';
 					imgCont_02.style.height = parseInt(CSSprop) + '%';
 				}
 			}
