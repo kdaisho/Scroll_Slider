@@ -167,17 +167,18 @@ document.addEventListener('DOMContentLoaded', function() {
 		scrollYonLoad = rect.top;
 		evalIfPassed(rect.top);
 		console.log('isPassed on load? ' + isPassed);
+		// console.log('isPassed on load? ' + evalIfPassed(rect.top));
 	});
 
 	function setDefaultHeight(arr) {
-		innerH = window.innerHeight;
-		for (var i = 0, len = arr.length; i < len; i++) {
+		for (var i = 0, innerH = window.innerHeight, len = arr.length; i < len; i++) {
 			arr[i].style.height = innerH + 'px';
 		}
 	}
 
 	function evalIfPassed(value) {
 		isPassed = value < 0 ? true : false;
+		// return value < 0 ? true : false;
 	}
 
 	function detectIfcrossed() {
