@@ -168,16 +168,16 @@ document.addEventListener('DOMContentLoaded', function() {
 	}
 
 	function detectIfcrossed() {
-		if (!is01done && !isPassed && rect.top < 0 && scrollDir == 'down') {
+		if (!is01done && !isPassed && rect.top < 0 && scrollDir === 'down') {
 			isCrossed = true;
 			lasthit = 'top';
 		}
-		if ((is01done && rect.top > 0 && scrollDir == 'up')) {
-			if (isPassed) isPassed = false; 
+		else if (is01done && rect.top > 0 && scrollDir === 'up') {
 			isCrossed = true;
 			is01done = false;
 			lasthit = 'bottom';
 		}
+		isPassed = false;
 	}
 
 	function detectIfcrossedOnce() {
@@ -209,7 +209,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 			setStyles(container, 'fixed', 0, 0);
 
-			if (isAnimate == false) {
+			if (isAnimate === false) {
 				startingY = window.pageYOffset;
 				isAnimate = true;
 			}
@@ -218,7 +218,7 @@ document.addEventListener('DOMContentLoaded', function() {
 			newCSSprop = imageHeight - scAmount;
 			imgCont_01.style.height = parseInt(newCSSprop) + '%';
 
-			if ((lasthit == 'top' && (scAmount >= 100 || scAmount <= -1)) || (lasthit == 'bottom' && (scAmount >= 1 || scAmount <= -100))) {
+			if ((lasthit === 'top' && (scAmount >= 100 || scAmount <= -1)) || (lasthit === 'bottom' && (scAmount >= 1 || scAmount <= -100))) {
 				setStyles(container, 'relative', 50, -50);
 				releaseSlide();
 			}
