@@ -158,9 +158,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
 	function setHeight(img, imgContainer, container) {
 		innerH = window.innerHeight;
-		img.style.height = innerH + 'px';
-		imgContainer.style.height = innerH + 'px';
-		container.style.height = innerH + 'px';
+		for (var i = 0, len = arguments.length; i < len; i++) {
+			arguments[i].style.height = innerH + 'px';
+		}
 	}
 
 	function evalIfpassed(value) {
