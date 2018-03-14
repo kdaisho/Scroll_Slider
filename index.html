@@ -60,10 +60,17 @@ html, body {
 	/*background: url('https://picsum.photos/1000/300/') no-repeat top center;*/
 	background-size: cover;
 	height: 100%;
-	z-index: 20;
+	z-index: 12;
 }
 .panel__02 {
 	background: url('images/image-02.jpg') no-repeat top center;
+	/*background: url('https://picsum.photos/1000/300/?random') no-repeat top center;*/
+	background-size: cover;
+	height: 100%;
+	z-index: 11;
+}
+.panel__03 {
+	background: url('images/image-03.jpg') no-repeat top center;
 	/*background: url('https://picsum.photos/1000/300/?random') no-repeat top center;*/
 	background-size: cover;
 	height: 100%;
@@ -99,6 +106,9 @@ html, body {
 
 	<div id="parentContainer" class="parentContainer">
 		<div id="container" class="container">
+			<div id="imgCont_03" class="panel panel--03">
+				<div id="img04" class="panel__03"></div>
+			</div>
 			<div id="imgCont_02" class="panel panel--02">
 				<div id="img02" class="panel__02"></div>
 			</div>
@@ -121,6 +131,7 @@ document.addEventListener('DOMContentLoaded', function() {
 	var img01 = document.getElementById('img01'),
 		container = document.getElementById('container'),
 		imgCont_01 = document.getElementById('imgCont_01'),
+		imgCont_02 = document.getElementById('imgCont_02'),
 		overlay = document.getElementById('overlay'),
 		indicator = document.getElementById('indicator'),
 		innerH,
@@ -141,10 +152,11 @@ document.addEventListener('DOMContentLoaded', function() {
 		isCrossed = false,
 		imageHeight = 100,
 		reverse = false,
-		lasthit;
+		lasthit,
+		counter = 0;
 
 	$(window).on("load resize", function() {
-		setDefaultHeight([img01, imgCont_01, container]);
+		setDefaultHeight([img01, imgCont_01, img02, imgCont_02, container]);
 		rect = container.getBoundingClientRect();
 		scrollYonLoad = rect.top;
 		evalIfpassed(rect.top);
@@ -211,9 +223,28 @@ document.addEventListener('DOMContentLoaded', function() {
 
 			scAmount = (window.pageYOffset - parseInt(startingY))/5;
 			CSSprop = imageHeight - scAmount;
-			imgCont_01.style.height = parseInt(CSSprop) + '%';
 
-			if ((lasthit === 'top' && (scAmount >= 100 || scAmount <= -1)) || (lasthit === 'bottom' && (scAmount >= 1 || scAmount <= -100))) {
+			if (counter == 0) {
+				indicator.innerHTML += ' :01-CSSPROP ' + parseInt(CSSprop);
+				imgCont_01.style.height = parseInt(CSSprop) + '%';
+				if (CSSprop >= 101) {
+					alert('reached: ' + CSSprop);
+					CSSprop = 100;
+				}
+			}
+			if (counter == 1) {
+				indicator.innerHTML += ' :02-CSSPROP ' + parseInt(CSSprop);
+				CSSprop = 100 + CSSprop;
+				imgCont_02.style.height = parseInt(CSSprop) + '%';
+				indicator.innerHTML += ' :1counter ' + counter;
+			}
+
+			if (parseInt(imgCont_01.style.height) <= 0) {
+				counter = 1;
+				indicator.innerHTML += ' :2counter ' + counter;
+			}
+
+			if ((lasthit === 'top' && (scAmount >= 200 || scAmount <= -1)) || (lasthit === 'bottom' && (scAmount >= 1 || scAmount <= -100))) {
 				setStyles(container, 'relative', 50, -50);
 				releaseSlide();
 			}
