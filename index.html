@@ -102,6 +102,7 @@ html, body {
 
     <div class="otherElements">
 		 sunt in culpa qui officia deserunt mollit anim id est laborum ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. sunt in culpa qui officia deserunt mollit anim id est laborum ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+		 unt in culpa qui officia deserunt mollit anim id est laborum ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. sunt in culpa qui officia deserunt mollit anim id est laborum ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 	</div>
 	
 	<div id="overlay" class="overlay" style="display: none;"></div>
@@ -234,6 +235,8 @@ document.addEventListener('DOMContentLoaded', function() {
 				imgCont_01.style.height = parseInt(CSSprop) + '%';
 				console.log('counter0 is being excuted');
 
+				indicator.innerHTML += ' :scAmount ' + scAmount + '<br>';
+
 				if (counter == 0 && parseInt(imgCont_01.style.height) <= 0) {
 					counter = 1;
 					console.log('Turns 1');
@@ -274,6 +277,8 @@ var scAmount2;
 				imgCont_02.style.height = parseInt(CSSprop) + '%';
 				indicator.innerHTML += ' :2counter ' + counter + '<br>';
 
+				indicator.innerHTML += ' :scAmount ' + scAmount + '<br>';
+
 				// if (counter == 1 && parseInt(imgCont_02.style.height) >= 100) {
 				// 	counter = 0;
 				// 	console.log('Turns 0 ' + CSSprop);
@@ -292,6 +297,8 @@ var scAmount2;
 			if (counter == 1 && parseInt(imgCont_02.style.height) >= 100) {
 				counter = 0;
 				console.log('Turns 0 ' + CSSprop);
+
+				indicator.innerHTML += ' :scAmount ' + scAmount + '<br>';
 				// scAmount3 = scAmount + 200;
 				// console.log('scAmount3 ' + scAmount3);
 				// CSSprop = 100 - scAmount3;
@@ -305,15 +312,28 @@ var scAmount2;
 
 			if (counter == 0 && lasthit == 'bottom') {
 				indicator.innerHTML += ' :3counter ' + counter + '<br>';
+				indicator.innerHTML += ' :scAmount ' + scAmount + '<br>';
 				scAmount3 = scAmount + 100;
 				console.log('scAmount3 ' + scAmount3);
-				CSSprop = scAmount3 - 150;
+				CSSprop = scAmount3 - 100;
 				CSSprop = Math.abs(CSSprop);
 				console.log('Last CSSprop ' + CSSprop);
+				scAmount = scAmount3 - 100;
 
 				CSSprop = CSSprop - 100;
 				// imgCont_01.style.height = 0;
 				imgCont_01.style.height = parseInt(CSSprop) + '%';
+
+				if (scAmount >= -99) {
+					console.log('o');
+					CSSprop = 100 - Math.abs(scAmount);
+					CSSprop = Math.abs(CSSprop);
+					CSSprop = 100 - CSSprop;
+					indicator.innerHTML += ' :CSSPROP ' + CSSprop + '<br>';
+					// CSSprop = 0 - CSSprop;
+					// indicator.innerHTML += ' :CSSPROP ' + CSSprop + '<br>';
+					imgCont_02.style.height = parseInt(CSSprop) + '%';
+				}
 			}
 
 			
