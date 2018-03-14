@@ -224,7 +224,7 @@ document.addEventListener('DOMContentLoaded', function() {
 				isAnimate = true;
 			}
 
-			scAmount = (window.pageYOffset - parseInt(startingY))/7;
+			scAmount = (window.pageYOffset - parseInt(startingY))/10;
 
 			CSSprop = imageHeight - scAmount;
 
@@ -236,8 +236,7 @@ document.addEventListener('DOMContentLoaded', function() {
 				counter++;
 			}
 
-			var scAmount2 = 0,
-				scAmount3 = 0;
+			var scAmount2 = 0;
 
 			if (counter == 1 && lasthit == 'top') {
 				CSSprop = 100;
@@ -261,19 +260,13 @@ document.addEventListener('DOMContentLoaded', function() {
 			}
 
 			if (counter == 0 && lasthit == 'bottom') {
-				scAmount3 = scAmount + 100;
-				CSSprop = scAmount3 - 100;
-				CSSprop = Math.abs(CSSprop);
-				scAmount = scAmount3 - 100;
 
 				CSSprop = CSSprop - 100;
+
 				imgCont_01.style.height = parseInt(CSSprop) + '%';
 
-				if (scAmount >= -99) {
-					CSSprop = 100 - Math.abs(scAmount);
-					CSSprop = Math.abs(CSSprop);
-					CSSprop = 100 - CSSprop;
-
+				if (scAmount >= -100) {
+					CSSprop = 100 - Math.abs(CSSprop);
 					imgCont_02.style.height = parseInt(CSSprop) + '%';
 				}
 			}
@@ -282,12 +275,10 @@ document.addEventListener('DOMContentLoaded', function() {
 			indicator.innerHTML += 'Counter: ' + counter + '<br>';
 			indicator.innerHTML += 'ScAmount: ' + scAmount + '<br>';
 			indicator.innerHTML += 'ScAmount2: ' + scAmount2 + '<br>';
-			indicator.innerHTML += 'ScAmount3: ' + scAmount3 + '<br>';
 			indicator.innerHTML += 'CSSprop ' + CSSprop + '<br>';
 			
-
+			//Leave slide mode
 			if ((lasthit === 'top' && (scAmount >= 200 || scAmount <= -1)) || (lasthit === 'bottom' && (scAmount >= 1 || scAmount <= -200))) {
-
 				setStyles(container, 'relative', 50, -50);
 				releaseSlide();
 			}
