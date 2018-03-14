@@ -150,16 +150,22 @@ document.addEventListener('DOMContentLoaded', function() {
 		console.log('isPassed on load? ' + isPassed);
 	});
 
-	function addStyle(ele) {
-		ele.style.position = 'fixed';
-		ele.style.left = '50%';
-		ele.style.transform = 'translate(-50%, 0)';
-	}
+	// function addStyle(ele) {
+	// 	ele.style.position = 'fixed';
+	// 	ele.style.left = '50%';
+	// 	ele.style.transform = 'translate(-50%, 0)';
+	// }
 
-	function removeStyle(ele) {
-		ele.style.position = 'relative';
-		ele.style.left = 0;
-		ele.style.transform = 'none';
+	// function removeStyle(ele) {
+	// 	ele.style.position = 'relative';
+	// 	ele.style.left = 0;
+	// 	ele.style.transform = 'none';
+	// }
+
+	function setStyles(el, position, left, transform) {
+		el.style.position = position;
+		el.style.left = left;
+		el.style.transform = transform;
 	}
 
 	function setHeight() {
@@ -213,10 +219,19 @@ document.addEventListener('DOMContentLoaded', function() {
 		}
 	}
 
+	function releaseScroll() {
+		setLastDirection(scrollDir);
+		resetImageHeight();
+		isCrossed = false;
+		scAmount = 0;
+	}
+
 	function scroll() {
 		if (!isPassed && isCrossed && !is01done) {
 			overlay.style.display = 'block';
-			addStyle(container);
+			// addStyle(container);
+			setStyles(container, 'fixed', 0, 'none');
+
 			if (isAnimate == false) {
 				startingY = window.pageYOffset;
 				isAnimate = true;
@@ -236,7 +251,8 @@ document.addEventListener('DOMContentLoaded', function() {
 				isCrossed = false;
 				scAmount = 0;
 				overlay.style.display = 'none';
-				removeStyle(container);
+				// removeStyle(container);
+				setStyles(container, 'relative', '50%', 'translate(-50%, 0)');
 				if (!reverse) {
 					is01done = true;
 				}
@@ -250,7 +266,8 @@ document.addEventListener('DOMContentLoaded', function() {
 				isCrossed = false;
 				scAmount = 0;
 				overlay.style.display = 'none';
-				removeStyle(container);
+				// removeStyle(container);
+				setStyles(container, 'relative', '50%', 'translate(-50%, 0)');
 				if (!reverse) {
 					is01done = true;
 				}
