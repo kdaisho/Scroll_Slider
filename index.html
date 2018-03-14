@@ -227,11 +227,18 @@ document.addEventListener('DOMContentLoaded', function() {
 			indicator.innerHTML += ' :imageHEIGHT ' + imageHeight + '<br>';
 			CSSprop = imageHeight - scAmount;
 
-			if (counter == 0) {
+			// if (counter == 0) {
+			if (counter == 0 && lasthit != 'bottom') {
 				indicator.innerHTML += ' :0counter ' + counter + '<br>';
 				indicator.innerHTML += ' :01-CSSPROP ' + parseInt(CSSprop) + '<br>';
 				imgCont_01.style.height = parseInt(CSSprop) + '%';
 				console.log('counter0 is being excuted');
+
+				if (counter == 0 && parseInt(imgCont_01.style.height) <= 0) {
+					counter = 1;
+					console.log('Turns 1');
+					indicator.innerHTML += ' :Ecounter ' + counter + '<br>';
+				}
 			}
 
 var scAmount2;
@@ -254,20 +261,64 @@ var scAmount2;
 					console.log('swithed to 0');
 					indicator.innerHTML += ' COUNTER ' + counter + '<br>';
 				}
+
+				
 			}
+
+
+			//reverse
 			if (counter == 1 && lasthit == 'bottom') {
 
 				CSSprop = Math.abs(CSSprop);
 				indicator.innerHTML += ' :03-CSSPROP ' + parseInt(CSSprop) + '<br>';
 				imgCont_02.style.height = parseInt(CSSprop) + '%';
 				indicator.innerHTML += ' :2counter ' + counter + '<br>';
+
+				// if (counter == 1 && parseInt(imgCont_02.style.height) >= 100) {
+				// 	counter = 0;
+				// 	console.log('Turns 0 ' + CSSprop);
+				// 	scAmount3 = scAmount + 200;
+				// 	console.log('scAmount3 ' + scAmount3);
+				// 	// CSSprop = 100 - scAmount3;
+				// 	CSSprop = scAmount3 - 100;
+				// 	CSSprop = Math.abs(CSSprop);
+				// 	console.log('Last CSSprop ' + CSSprop);
+
+				// 	// CSSprop = CSSprop - 100;
+				// 	imgCont_01.style.height = parseInt(CSSprop) + '%';
+				// }
 			}
 
-			if (counter == 0 && parseInt(imgCont_01.style.height) <= 0) {
-				counter = 1;
-				console.log('jaja');
-				indicator.innerHTML += ' :Ecounter ' + counter + '<br>';
+			if (counter == 1 && parseInt(imgCont_02.style.height) >= 100) {
+				counter = 0;
+				console.log('Turns 0 ' + CSSprop);
+				// scAmount3 = scAmount + 200;
+				// console.log('scAmount3 ' + scAmount3);
+				// CSSprop = 100 - scAmount3;
+				// CSSprop = scAmount3 - 100;
+				// CSSprop = Math.abs(CSSprop);
+				// console.log('Last CSSprop ' + CSSprop);
+
+				// // CSSprop = CSSprop - 100;
+				// imgCont_01.style.height = parseInt(CSSprop) + '%';
 			}
+
+			if (counter == 0 && lasthit == 'bottom') {
+				indicator.innerHTML += ' :3counter ' + counter + '<br>';
+				scAmount3 = scAmount + 100;
+				console.log('scAmount3 ' + scAmount3);
+				CSSprop = scAmount3 - 150;
+				CSSprop = Math.abs(CSSprop);
+				console.log('Last CSSprop ' + CSSprop);
+
+				CSSprop = CSSprop - 100;
+				// imgCont_01.style.height = 0;
+				imgCont_01.style.height = parseInt(CSSprop) + '%';
+			}
+
+			
+
+			
 
 			if ((lasthit === 'top' && (scAmount >= 200 || scAmount <= -1)) || (lasthit === 'bottom' && (scAmount >= 1 || scAmount <= -200))) {
 
