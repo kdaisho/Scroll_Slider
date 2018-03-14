@@ -140,7 +140,8 @@ document.addEventListener('DOMContentLoaded', function() {
 		innerH,
 		rect,
 		startingY = 0,
-		scAmount,
+		scAmount = 0,
+		scAmount2 = 0,
 		scrollDir,
 		CSSprop,
 		isAnimate = false,
@@ -199,15 +200,21 @@ document.addEventListener('DOMContentLoaded', function() {
 	function releaseSlide() {
 		reverse = scrollDir === 'up' ? true : false;
 		imageHeight = !reverse ? 0 : 100;
-
-		overlay.style.display = 'none';
-
 		is01done = !reverse ? true : false;
 		isCrossed = isAnimate = false;
 		isCrossed = false;
 		scAmount = 0;
-
+		overlay.style.display = 'none';
 		container.scrollIntoView();
+	}
+
+	function setCounter(x) {
+		if (x == 0 && CSSprop <= 1) {
+			counter++;
+		}
+		else if (x == 1 && CSSprop >= 100) {
+			counter--;
+		}
 	}
 
 	function slide() {
@@ -228,48 +235,50 @@ document.addEventListener('DOMContentLoaded', function() {
 
 			CSSprop = imageHeight - scAmount;
 
-			if (counter == 0 && lasthit != 'bottom') {
-				imgCont_01.style.height = parseInt(CSSprop) + '%';
-			}
 
-			if (counter == 0 && parseInt(CSSprop) <= 1) {
-				counter++;
-			}
 
-			var scAmount2 = 0;
 
-			if (counter == 1 && lasthit == 'top') {
-				CSSprop = 100;
-				scAmount2 = scAmount - 100;
-				CSSprop = 100 - scAmount2;
-				
-				if (scAmount2 >= 0) imgCont_02.style.height = parseInt(CSSprop) + '%';
-				CSSprop = 0 + Math.abs(scAmount2);
-				if (scAmount2 <= 1) imgCont_01.style.height = parseInt(CSSprop) + '%';
+			//forward
+			if (lasthit === 'top') {
+
+				if (counter === 0) {
+					imgCont_01.style.height = CSSprop + '%';
+				}
+
+				if (counter === 1) {
+					CSSprop = 100;
+					scAmount2 = scAmount - 100;
+					CSSprop = 100 - scAmount2;
+					
+					if (scAmount2 >= 0) imgCont_02.style.height = CSSprop + '%';
+					CSSprop = 0 + Math.abs(scAmount2);
+					if (scAmount2 <= 1) imgCont_01.style.height = CSSprop + '%';
+				}
 			}
 
 
 			//reverse
-			if (counter == 1 && lasthit == 'bottom') {
-				CSSprop = Math.abs(CSSprop);
-				imgCont_02.style.height = parseInt(CSSprop) + '%';
-			}
+			if (lasthit === 'bottom') {
 
-			if (counter == 1 && CSSprop >= 100) {
-				counter--;
-			}
+				if (counter === 1) {
+					CSSprop = Math.abs(CSSprop);
+					imgCont_02.style.height = CSSprop + '%';
+				}
 
-			if (counter == 0 && lasthit == 'bottom') {
+				if (counter === 0) {
 
-				CSSprop = CSSprop - 100;
+					CSSprop -= 100;
 
-				imgCont_01.style.height = parseInt(CSSprop) + '%';
+					imgCont_01.style.height = CSSprop + '%';
 
-				if (scAmount >= -100) {
-					CSSprop = 100 - Math.abs(CSSprop);
-					imgCont_02.style.height = parseInt(CSSprop) + '%';
+					if (scAmount >= -100) {
+						CSSprop = 100 - Math.abs(CSSprop);
+						imgCont_02.style.height = CSSprop + '%';
+					}
 				}
 			}
+
+			setCounter(counter);
 
 			indicator.innerHTML += 'ImageHEIGHT: ' + imageHeight + '<br>';
 			indicator.innerHTML += 'Counter: ' + counter + '<br>';
