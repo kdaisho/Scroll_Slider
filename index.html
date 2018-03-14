@@ -188,15 +188,13 @@ document.addEventListener('DOMContentLoaded', function() {
 		isPassed = false;
 	}
 
-	function releaseSlide() {
+	function setConditionsWhenSlideEnd() {
 		reverse = scrollDir === 'up' ? true : false;
 		imageHeight = !reverse ? 0 : 100;
 		is01done = !reverse ? true : false;
 		isCrossed = isAnimate = false;
 		isCrossed = false;
 		scAmount = 0;
-		overlay.style.display = 'none';
-		container.scrollIntoView();
 	}
 
 	function setCounter(x) {
@@ -277,8 +275,10 @@ document.addEventListener('DOMContentLoaded', function() {
 			
 			//Leave slide mode
 			if ((lasthit === 'top' && (scAmount >= 200 || scAmount <= -1)) || (lasthit === 'bottom' && (scAmount >= 1 || scAmount <= -200))) {
+				setConditionsWhenSlideEnd();
 				container.style.position = 'relative';
-				releaseSlide();
+				overlay.style.display = 'none';
+				container.scrollIntoView();
 			}
 		}
 	}
