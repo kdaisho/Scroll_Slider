@@ -77,6 +77,14 @@ html, body {
 	width: 100%;
 	z-index: 9;
 }
+.indicator {
+	background: rgba(255, 255, 255, .5);
+	font-size: 2rem;
+	position: fixed;
+	right: 100px;
+	top: 100px;
+	z-index: 50;
+}
 </style>
 
 <article class="use-fluid-grid">
@@ -98,6 +106,8 @@ html, body {
 		</div>
 	</div>
 
+	<div id="indicator" class="indicator"></div>
+
 	<div class="otherElements">
 		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 	</div>
@@ -110,6 +120,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		container = document.getElementById('container'),
 		imgCont_01 = document.getElementById('imgCont_01'),
 		overlay = document.getElementById('overlay'),
+		indicator = document.getElementById('indicator'),
 		innerH,
 		rect,
 		startingY = 0,
@@ -170,16 +181,19 @@ document.addEventListener('DOMContentLoaded', function() {
 	function evalIfpassed(value) {
 		isPassed = value < 0 ? true : false;
 	}
-
+	var lasthit;
 	function detectIfcrossed() {
 		if (!is01done && !isPassed && rect.y < 0 && scrollDir == 'down') {
 			isCrossed = true;
+			lasthit = 'top';
 		}
 		if ((is01done && rect.y > 0 && scrollDir == 'up')) {
 			if (isPassed) isPassed = false; 
 			isCrossed = true;
 			is01done = false;
+			lasthit = 'bottom';
 		}
+
 	}
 
 	function detectIfcrossedOnce() {
@@ -207,6 +221,8 @@ document.addEventListener('DOMContentLoaded', function() {
 				startingY = window.pageYOffset;
 				isAnimate = true;
 			}
+
+			indicator.innerHTML = 'last hit: ' + lasthit;
 
 			scAmount = (window.pageYOffset - parseInt(startingY))/5;
 			newCSSprop = imageHeight - scAmount;
