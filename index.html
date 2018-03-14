@@ -224,7 +224,7 @@ document.addEventListener('DOMContentLoaded', function() {
 				isAnimate = true;
 			}
 
-			scAmount = (window.pageYOffset - parseInt(startingY))/5;
+			scAmount = (window.pageYOffset - parseInt(startingY))/7;
 			indicator.innerHTML += ' :imageHEIGHT ' + imageHeight + '<br>';
 			CSSprop = imageHeight - scAmount;
 
@@ -235,14 +235,8 @@ document.addEventListener('DOMContentLoaded', function() {
 				console.log('counter0 is being excuted');
 
 				indicator.innerHTML += ' :scAmount ' + scAmount + '<br>';
-
-				// if (counter == 0 && parseInt(imgCont_01.style.height) <= 0) {
-				// 	counter = 1;
-				// 	console.log('Turns 1');
-				// }
 			}
 
-			// if (counter == 0 && parseInt(imgCont_01.style.height) <= 1) {
 			if (counter == 0 && parseInt(CSSprop) <= 1) {
 				counter = 1;
 				console.log('Turns 1');
