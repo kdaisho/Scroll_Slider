@@ -225,85 +225,65 @@ document.addEventListener('DOMContentLoaded', function() {
 			}
 
 			scAmount = (window.pageYOffset - parseInt(startingY))/7;
-			indicator.innerHTML += ' :imageHEIGHT ' + imageHeight + '<br>';
+
 			CSSprop = imageHeight - scAmount;
 
 			if (counter == 0 && lasthit != 'bottom') {
-				
-				indicator.innerHTML += ' :01-CSSPROP ' + parseInt(CSSprop) + '<br>';
 				imgCont_01.style.height = parseInt(CSSprop) + '%';
-				console.log('counter0 is being excuted');
-
-				indicator.innerHTML += ' :scAmount ' + scAmount + '<br>';
 			}
 
 			if (counter == 0 && parseInt(CSSprop) <= 1) {
-				counter = 1;
-				console.log('Turns 1');
+				counter++;
 			}
 
-			var scAmount2,
-				scAmount3;
+			var scAmount2 = 0,
+				scAmount3 = 0;
 
 			if (counter == 1 && lasthit == 'top') {
 				CSSprop = 100;
-				indicator.innerHTML += ' :02-CSSPROP ' + parseInt(Math.abs(CSSprop)) + '<br>';
 				scAmount2 = scAmount - 100;
 				CSSprop = 100 - scAmount2;
-				indicator.innerHTML += ' :scAmount ' + scAmount + '<br>';
-				indicator.innerHTML += ' :scAmount2 ' + scAmount2 + '<br>';
-				if (scAmount2 >= 0 ) imgCont_02.style.height = parseInt(CSSprop) + '%';
-				CSSprop = 0 + Math.abs(scAmount2);
-				indicator.innerHTML += ' :last CSSPROP ' + CSSprop + '<br>';
-				if (scAmount2 <= 1 ) imgCont_01.style.height = parseInt(CSSprop) + '%';
 				
-				if (scAmount2 <= 100 ) {
-					console.log('swithed to 0');
-				}
+				if (scAmount2 >= 0) imgCont_02.style.height = parseInt(CSSprop) + '%';
+				CSSprop = 0 + Math.abs(scAmount2);
+				if (scAmount2 <= 1) imgCont_01.style.height = parseInt(CSSprop) + '%';
 			}
 
 
 			//reverse
 			if (counter == 1 && lasthit == 'bottom') {
-
 				CSSprop = Math.abs(CSSprop);
-				indicator.innerHTML += ' :03-CSSPROP ' + parseInt(CSSprop) + '<br>';
 				imgCont_02.style.height = parseInt(CSSprop) + '%';
-
-				indicator.innerHTML += ' :scAmount ' + scAmount + '<br>';
 			}
 
-			if (counter == 1 && parseInt(imgCont_02.style.height) >= 100) {
-				counter = 0;
-				console.log('Turns 0 ' + CSSprop);
-
-				indicator.innerHTML += ' :scAmount ' + scAmount + '<br>';
+			if (counter == 1 && CSSprop >= 100) {
+				counter--;
 			}
 
 			if (counter == 0 && lasthit == 'bottom') {
-				indicator.innerHTML += ' :scAmount ' + scAmount + '<br>';
 				scAmount3 = scAmount + 100;
-				console.log('scAmount3 ' + scAmount3);
 				CSSprop = scAmount3 - 100;
 				CSSprop = Math.abs(CSSprop);
-				console.log('Last CSSprop ' + CSSprop);
 				scAmount = scAmount3 - 100;
 
 				CSSprop = CSSprop - 100;
 				imgCont_01.style.height = parseInt(CSSprop) + '%';
 
 				if (scAmount >= -99) {
-					console.log('o');
 					CSSprop = 100 - Math.abs(scAmount);
 					CSSprop = Math.abs(CSSprop);
 					CSSprop = 100 - CSSprop;
-					indicator.innerHTML += ' :CSSPROP ' + CSSprop + '<br>';
+
 					imgCont_02.style.height = parseInt(CSSprop) + '%';
 				}
 			}
 
-			
+			indicator.innerHTML += 'ImageHEIGHT: ' + imageHeight + '<br>';
 			indicator.innerHTML += 'Counter: ' + counter + '<br>';
+			indicator.innerHTML += 'ScAmount: ' + scAmount + '<br>';
+			indicator.innerHTML += 'ScAmount2: ' + scAmount2 + '<br>';
+			indicator.innerHTML += 'ScAmount3: ' + scAmount3 + '<br>';
+			indicator.innerHTML += 'CSSprop ' + CSSprop + '<br>';
 			
 
 			if ((lasthit === 'top' && (scAmount >= 200 || scAmount <= -1)) || (lasthit === 'bottom' && (scAmount >= 1 || scAmount <= -200))) {
