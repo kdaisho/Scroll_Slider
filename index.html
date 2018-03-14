@@ -224,24 +224,28 @@ document.addEventListener('DOMContentLoaded', function() {
 				isAnimate = true;
 			}
 
-			scAmount = (window.pageYOffset - parseInt(startingY))/10;
+			scAmount = (window.pageYOffset - parseInt(startingY))/5;
 			indicator.innerHTML += ' :imageHEIGHT ' + imageHeight + '<br>';
 			CSSprop = imageHeight - scAmount;
 
-			// if (counter == 0) {
 			if (counter == 0 && lasthit != 'bottom') {
-				indicator.innerHTML += ' :0counter ' + counter + '<br>';
+				
 				indicator.innerHTML += ' :01-CSSPROP ' + parseInt(CSSprop) + '<br>';
 				imgCont_01.style.height = parseInt(CSSprop) + '%';
 				console.log('counter0 is being excuted');
 
 				indicator.innerHTML += ' :scAmount ' + scAmount + '<br>';
 
-				if (counter == 0 && parseInt(imgCont_01.style.height) <= 0) {
-					counter = 1;
-					console.log('Turns 1');
-					indicator.innerHTML += ' :Ecounter ' + counter + '<br>';
-				}
+				// if (counter == 0 && parseInt(imgCont_01.style.height) <= 0) {
+				// 	counter = 1;
+				// 	console.log('Turns 1');
+				// }
+			}
+
+			// if (counter == 0 && parseInt(imgCont_01.style.height) <= 1) {
+			if (counter == 0 && parseInt(CSSprop) <= 1) {
+				counter = 1;
+				console.log('Turns 1');
 			}
 
 			var scAmount2,
@@ -250,7 +254,7 @@ document.addEventListener('DOMContentLoaded', function() {
 			if (counter == 1 && lasthit == 'top') {
 				CSSprop = 100;
 				indicator.innerHTML += ' :02-CSSPROP ' + parseInt(Math.abs(CSSprop)) + '<br>';
-				scAmount2 = scAmount -100;
+				scAmount2 = scAmount - 100;
 				CSSprop = 100 - scAmount2;
 				indicator.innerHTML += ' :scAmount ' + scAmount + '<br>';
 				indicator.innerHTML += ' :scAmount2 ' + scAmount2 + '<br>';
@@ -259,14 +263,9 @@ document.addEventListener('DOMContentLoaded', function() {
 				indicator.innerHTML += ' :last CSSPROP ' + CSSprop + '<br>';
 				if (scAmount2 <= 1 ) imgCont_01.style.height = parseInt(CSSprop) + '%';
 				
-				indicator.innerHTML += ' :1counter ' + counter + '<br>';
-
 				if (scAmount2 <= 100 ) {
 					console.log('swithed to 0');
-					indicator.innerHTML += ' COUNTER ' + counter + '<br>';
 				}
-
-				
 			}
 
 
@@ -276,7 +275,6 @@ document.addEventListener('DOMContentLoaded', function() {
 				CSSprop = Math.abs(CSSprop);
 				indicator.innerHTML += ' :03-CSSPROP ' + parseInt(CSSprop) + '<br>';
 				imgCont_02.style.height = parseInt(CSSprop) + '%';
-				indicator.innerHTML += ' :2counter ' + counter + '<br>';
 
 				indicator.innerHTML += ' :scAmount ' + scAmount + '<br>';
 			}
@@ -289,7 +287,6 @@ document.addEventListener('DOMContentLoaded', function() {
 			}
 
 			if (counter == 0 && lasthit == 'bottom') {
-				indicator.innerHTML += ' :3counter ' + counter + '<br>';
 				indicator.innerHTML += ' :scAmount ' + scAmount + '<br>';
 				scAmount3 = scAmount + 100;
 				console.log('scAmount3 ' + scAmount3);
@@ -312,7 +309,7 @@ document.addEventListener('DOMContentLoaded', function() {
 			}
 
 			
-
+			indicator.innerHTML += 'Counter: ' + counter + '<br>';
 			
 
 			if ((lasthit === 'top' && (scAmount >= 200 || scAmount <= -1)) || (lasthit === 'bottom' && (scAmount >= 1 || scAmount <= -200))) {
