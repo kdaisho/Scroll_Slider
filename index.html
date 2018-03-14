@@ -228,7 +228,22 @@ document.addEventListener('DOMContentLoaded', function() {
 			newCSSprop = imageHeight - scAmount;
 			imgCont_01.style.height = parseInt(newCSSprop) + '%';
 
-			if (scAmount >= 100 || scAmount <= -100) {
+			// if (scAmount >= 100 || scAmount <= -100) {
+			if (lasthit == 'top' && (scAmount >= 100 || scAmount <= -10)) {
+				console.log('end of animation');
+				setLastDirection(scrollDir);
+				resetImageHeight();
+				isCrossed = false;
+				scAmount = 0;
+				overlay.style.display = 'none';
+				removeStyle(container);
+				if (!reverse) {
+					is01done = true;
+				}
+				isAnimate = false;
+				container.scrollIntoView();
+			}
+			if (lasthit == 'bottom' && scAmount >= 10 || scAmount <= -100) {
 				console.log('end of animation');
 				setLastDirection(scrollDir);
 				resetImageHeight();
