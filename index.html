@@ -90,7 +90,7 @@ html, body {
 <article class="use-fluid-grid">
 
     <div class="otherElements">
-		 sunt in culpa qui officia deserunt mollit anim id est laborum ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. sunt in culpa qui officia deserunt mollit anim id est laborum ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+		 sunt in culpa qui officia deserunt mollit anim id est laborum ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. sunt in culpa qui officia deserunt mollit anim id est laborum ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 	</div>
 	
 	<div id="overlay" class="overlay" style="display: none;"></div>
@@ -136,33 +136,18 @@ document.addEventListener('DOMContentLoaded', function() {
 		scrollDir,
 		currYPos,
 		is01done = false,
-		lastY,
+		scrollYonLoad,
 		isCrossed = false,
 		imageHeight = 100,
 		reverse = false;
 
 	$(window).on("load resize", function() {
-		console.log(supportOffset);
 		setHeight();
-		var __rect = container.getBoundingClientRect();
-		lastY = __rect.top;
-		evalIfpassed(__rect.top);
+		rect = container.getBoundingClientRect();
+		scrollYonLoad = rect.top;
+		evalIfpassed(rect.top);
 		console.log('isPassed on load? ' + isPassed);
-
-		alert('hit top ' + __rect.top);
 	});
-
-	// function addStyle(ele) {
-	// 	ele.style.position = 'fixed';
-	// 	ele.style.left = '50%';
-	// 	ele.style.transform = 'translate(-50%, 0)';
-	// }
-
-	// function removeStyle(ele) {
-	// 	ele.style.position = 'relative';
-	// 	ele.style.left = 0;
-	// 	ele.style.transform = 'none';
-	// }
 
 	function setStyles(el, position, left, transformValue) {
 		el.style.position = position;
@@ -175,15 +160,6 @@ document.addEventListener('DOMContentLoaded', function() {
 		img01.style.height = innerH + 'px';
 		imgCont_01.style.height = innerH + 'px';
 		container.style.height = innerH + 'px';
-	}
-
-	function resetImageHeight() {
-		if (!reverse) {
-			imageHeight = 0;
-		}
-		else {
-			imageHeight = 100;
-		}
 	}
 
 	function evalIfpassed(value) {
@@ -201,16 +177,15 @@ document.addEventListener('DOMContentLoaded', function() {
 			is01done = false;
 			lasthit = 'bottom';
 		}
-
 	}
 
 	function detectIfcrossedOnce() {
-		if ((lastY > 0 && rect.top < 0) || (lastY < 0 && rect.top > 0)) {
+		if ((scrollYonLoad > 0 && rect.top < 0) || (scrollYonLoad < 0 && rect.top > 0)) {
 			isPassed = false;
 		}
 	}
 
-	function setLastDirection(scrollDir) {
+	function setLeavingDirection(scrollDir) {
 		if (scrollDir == 'up') {
 			reverse = true;
 			console.log('Reverse (up): ' + reverse);
@@ -221,60 +196,42 @@ document.addEventListener('DOMContentLoaded', function() {
 		}
 	}
 
-	function releaseScroll() {
-		setLastDirection(scrollDir);
-		resetImageHeight();
+	function releaseSlide() {
+		setLeavingDirection(scrollDir);
+
+		imageHeight = !reverse ? 0 : 100;
+
+		overlay.style.display = 'none';
+
+		is01done = !reverse ? true : false;
+		isCrossed = isAnimate = false;
 		isCrossed = false;
 		scAmount = 0;
+
+		container.scrollIntoView();
 	}
 
-	function scroll() {
+	function slide() {
 		if (!isPassed && isCrossed && !is01done) {
+
+			indicator.innerHTML = 'last hit: ' + lasthit;
+
 			overlay.style.display = 'block';
-			// addStyle(container);
+
 			setStyles(container, 'fixed', 0, 0);
-
-
 
 			if (isAnimate == false) {
 				startingY = window.pageYOffset;
 				isAnimate = true;
 			}
 
-			indicator.innerHTML = 'last hit: ' + lasthit;
-
 			scAmount = (window.pageYOffset - parseInt(startingY))/5;
 			newCSSprop = imageHeight - scAmount;
 			imgCont_01.style.height = parseInt(newCSSprop) + '%';
 
-			// if (scAmount >= 100 || scAmount <= -100) {
-			if (lasthit == 'top' && (scAmount >= 100 || scAmount <= -10)) {
-				console.log('end of animation');
-				setLastDirection(scrollDir);
-				resetImageHeight();
-				isCrossed = false;
-				scAmount = 0;
-				overlay.style.display = 'none';
+			if ((lasthit == 'top' && (scAmount >= 100 || scAmount <= -1)) || (lasthit == 'bottom' && (scAmount >= 1 || scAmount <= -100))) {
 				setStyles(container, 'relative', 50, -50);
-				if (!reverse) {
-					is01done = true;
-				}
-				isAnimate = false;
-				container.scrollIntoView();
-			}
-			if (lasthit == 'bottom' && scAmount >= 10 || scAmount <= -100) {
-				console.log('end of animation');
-				setLastDirection(scrollDir);
-				resetImageHeight();
-				isCrossed = false;
-				scAmount = 0;
-				overlay.style.display = 'none';
-				setStyles(container, 'relative', 50, -50);
-				if (!reverse) {
-					is01done = true;
-				}
-				isAnimate = false;
-				container.scrollIntoView();
+				releaseSlide();
 			}
 		}
 	}
@@ -288,7 +245,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		detectIfcrossedOnce();
 		if (!ticking) {
 			window.requestAnimationFrame(function() {
-				scroll();
+				slide();
 				ticking = false;
 			});
 		}
