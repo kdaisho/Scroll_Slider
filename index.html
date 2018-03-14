@@ -40,8 +40,10 @@ html, body {
 }
 .container {
 	position: relative;
-	left: 0;
+	left: 50%;
 	top: 0;
+    -ms-transform: translate(-50%, 0);
+		transform: translate(-50%, 0);
 	width: 100%;
 	max-width: 1920px;
 	z-index: 10;
@@ -102,7 +104,7 @@ html, body {
 
     <div class="otherElements">
 		 sunt in culpa qui officia deserunt mollit anim id est laborum ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. sunt in culpa qui officia deserunt mollit anim id est laborum ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-		 unt in culpa qui officia deserunt mollit anim id est laborum ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. sunt in culpa qui officia deserunt mollit anim id est laborum ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+		 unt in culpa qui officia deserunt mollit anim id est laborum ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
 	</div>
 	
 	<div id="overlay" class="overlay" style="display: none;"></div>
@@ -163,15 +165,9 @@ document.addEventListener('DOMContentLoaded', function() {
 		setDefaultHeight([img01, imgCont_01, img02, imgCont_02, container]);
 		rect = container.getBoundingClientRect();
 		scrollYonLoad = rect.top;
-		evalIfpassed(rect.top);
+		evalIfPassed(rect.top);
 		console.log('isPassed on load? ' + isPassed);
 	});
-
-	function setStyles(el, position, left, transformValue) {
-		el.style.position = position;
-		el.style.left = left + '%';
-		el.style.transform = 'translate(' + transformValue + '%, 0)';
-	}
 
 	function setDefaultHeight(arr) {
 		innerH = window.innerHeight;
@@ -180,7 +176,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		}
 	}
 
-	function evalIfpassed(value) {
+	function evalIfPassed(value) {
 		isPassed = value < 0 ? true : false;
 	}
 
@@ -220,11 +216,8 @@ document.addEventListener('DOMContentLoaded', function() {
 	function slide() {
 		if (!isPassed && isCrossed && !is01done) {
 
-			indicator.innerHTML = 'last hit: ' + lasthit + '<br>';
-
 			overlay.style.display = 'block';
-
-			setStyles(container, 'fixed', 0, 0);
+			container.style.position = 'fixed';
 
 			if (isAnimate === false) {
 				startingY = window.pageYOffset;
@@ -234,8 +227,6 @@ document.addEventListener('DOMContentLoaded', function() {
 			scAmount = (window.pageYOffset - parseInt(startingY))/10;
 
 			CSSprop = imageHeight - scAmount;
-
-
 
 
 			//forward
@@ -251,7 +242,9 @@ document.addEventListener('DOMContentLoaded', function() {
 					CSSprop = 100 - scAmount2;
 					
 					if (scAmount2 >= 0) imgCont_02.style.height = CSSprop + '%';
-					CSSprop = 0 + Math.abs(scAmount2);
+
+					CSSprop = Math.abs(scAmount2);
+
 					if (scAmount2 <= 1) imgCont_01.style.height = CSSprop + '%';
 				}
 			}
@@ -280,6 +273,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 			setCounter(counter);
 
+			indicator.innerHTML = 'Last hit: ' + lasthit + '<br>';
 			indicator.innerHTML += 'ImageHEIGHT: ' + imageHeight + '<br>';
 			indicator.innerHTML += 'Counter: ' + counter + '<br>';
 			indicator.innerHTML += 'ScAmount: ' + scAmount + '<br>';
@@ -288,7 +282,7 @@ document.addEventListener('DOMContentLoaded', function() {
 			
 			//Leave slide mode
 			if ((lasthit === 'top' && (scAmount >= 200 || scAmount <= -1)) || (lasthit === 'bottom' && (scAmount >= 1 || scAmount <= -200))) {
-				setStyles(container, 'relative', 50, -50);
+				container.style.position = 'relative';
 				releaseSlide();
 			}
 		}
