@@ -206,7 +206,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		}
 	}
 
-	function slide() {
+	function slide(slide1, slide2) {
 		if (!isPassed && isCrossed && !is01done) {
 
 			overlay.style.display = 'block';
@@ -226,7 +226,7 @@ document.addEventListener('DOMContentLoaded', function() {
 			if (lasthit === 'top') {
 
 				if (counter === 0) {
-					imgCont_01.style.height = CSSprop + '%';
+					slide1.style.height = CSSprop + '%';
 				}
 
 				if (counter === 1) {
@@ -234,11 +234,11 @@ document.addEventListener('DOMContentLoaded', function() {
 					scAmount2 = scAmount - 100;
 					CSSprop = 100 - scAmount2;
 					
-					if (scAmount2 >= 0) imgCont_02.style.height = CSSprop + '%';
+					if (scAmount2 >= 0) slide2.style.height = CSSprop + '%';
 
 					CSSprop = Math.abs(scAmount2);
 
-					if (scAmount2 <= 1) imgCont_01.style.height = CSSprop + '%';
+					if (scAmount2 <= 1) slide1.style.height = CSSprop + '%';
 				}
 			}
 
@@ -248,18 +248,18 @@ document.addEventListener('DOMContentLoaded', function() {
 
 				if (counter === 1) {
 					CSSprop = Math.abs(CSSprop);
-					imgCont_02.style.height = CSSprop + '%';
+					slide2.style.height = CSSprop + '%';
 				}
 
 				if (counter === 0) {
 
 					CSSprop -= 100;
 
-					imgCont_01.style.height = CSSprop + '%';
+					slide1.style.height = CSSprop + '%';
 
 					if (scAmount >= -100) {
 						CSSprop = 100 - Math.abs(CSSprop);
-						imgCont_02.style.height = CSSprop + '%';
+						slide2.style.height = CSSprop + '%';
 					}
 				}
 			}
@@ -291,7 +291,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		detectIfcrossed();
 		if (!ticking) {
 			window.requestAnimationFrame(function() {
-				slide();
+				slide(imgCont_01, imgCont_02);
 				ticking = false;
 			});
 		}
