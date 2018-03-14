@@ -145,9 +145,11 @@ document.addEventListener('DOMContentLoaded', function() {
 		console.log(supportOffset);
 		setHeight();
 		var __rect = container.getBoundingClientRect();
-		lastY = __rect.y;
-		evalIfpassed(__rect.y);
+		lastY = __rect.top;
+		evalIfpassed(__rect.top);
 		console.log('isPassed on load? ' + isPassed);
+
+		alert('hit top ' + __rect.top);
 	});
 
 	// function addStyle(ele) {
@@ -162,10 +164,10 @@ document.addEventListener('DOMContentLoaded', function() {
 	// 	ele.style.transform = 'none';
 	// }
 
-	function setStyles(el, position, left, transform) {
+	function setStyles(el, position, left, transformValue) {
 		el.style.position = position;
-		el.style.left = left;
-		el.style.transform = transform;
+		el.style.left = left + '%';
+		el.style.transform = 'translate(' + transformValue + '%, 0)';
 	}
 
 	function setHeight() {
@@ -189,11 +191,11 @@ document.addEventListener('DOMContentLoaded', function() {
 	}
 	var lasthit;
 	function detectIfcrossed() {
-		if (!is01done && !isPassed && rect.y < 0 && scrollDir == 'down') {
+		if (!is01done && !isPassed && rect.top < 0 && scrollDir == 'down') {
 			isCrossed = true;
 			lasthit = 'top';
 		}
-		if ((is01done && rect.y > 0 && scrollDir == 'up')) {
+		if ((is01done && rect.top > 0 && scrollDir == 'up')) {
 			if (isPassed) isPassed = false; 
 			isCrossed = true;
 			is01done = false;
@@ -203,7 +205,7 @@ document.addEventListener('DOMContentLoaded', function() {
 	}
 
 	function detectIfcrossedOnce() {
-		if ((lastY > 0 && rect.y < 0) || (lastY < 0 && rect.y > 0)) {
+		if ((lastY > 0 && rect.top < 0) || (lastY < 0 && rect.top > 0)) {
 			isPassed = false;
 		}
 	}
@@ -230,7 +232,9 @@ document.addEventListener('DOMContentLoaded', function() {
 		if (!isPassed && isCrossed && !is01done) {
 			overlay.style.display = 'block';
 			// addStyle(container);
-			setStyles(container, 'fixed', 0, 'none');
+			setStyles(container, 'fixed', 0, 0);
+
+
 
 			if (isAnimate == false) {
 				startingY = window.pageYOffset;
@@ -251,8 +255,7 @@ document.addEventListener('DOMContentLoaded', function() {
 				isCrossed = false;
 				scAmount = 0;
 				overlay.style.display = 'none';
-				// removeStyle(container);
-				setStyles(container, 'relative', '50%', 'translate(-50%, 0)');
+				setStyles(container, 'relative', 50, -50);
 				if (!reverse) {
 					is01done = true;
 				}
@@ -266,8 +269,7 @@ document.addEventListener('DOMContentLoaded', function() {
 				isCrossed = false;
 				scAmount = 0;
 				overlay.style.display = 'none';
-				// removeStyle(container);
-				setStyles(container, 'relative', '50%', 'translate(-50%, 0)');
+				setStyles(container, 'relative', 50, -50);
 				if (!reverse) {
 					is01done = true;
 				}
@@ -277,7 +279,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		}
 	}
 
-	window.addEventListener('wheel', function() {
+	window.addEventListener('scroll', function() {
 		currYPos = supportOffset ? window.pageYOffset : document.body.scrollTop;
 		rect = container.getBoundingClientRect();
 		scrollDir = lastKnownPos > currYPos ? 'up' : 'down';
