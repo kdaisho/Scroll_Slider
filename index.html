@@ -57,6 +57,9 @@ html, body {
 	top: 0;
 	width: 100%;
 }
+.panel span {
+	display: block;
+}
 .panel__01 {
 	background: url('images/image-01.jpg') no-repeat top center;
 	/*background: url('https://picsum.photos/1000/300/') no-repeat top center;*/
@@ -110,17 +113,17 @@ html, body {
 	<div id="overlay" class="overlay" style="display: none;"></div>
 
 	<div id="parentContainer" class="parentContainer">
-		<div id="container" class="container">
-			<div id="imgCont_03" class="panel panel--03">
-				<div id="img04" class="panel__03"></div>
-			</div>
-			<div id="imgCont_02" class="panel panel--02">
-				<div id="img02" class="panel__02"></div>
-			</div>
-			<div id="imgCont_01" class="panel panel--01">
-				<div id="img01" class="panel__01"></div>
-			</div>
-		</div>
+		<ul id="container" class="container">
+			<li id="imgCont_03" class="panel panel--03">
+				<span id="img04" class="panel__03"></span>
+			</li>
+			<li id="imgCont_02" class="panel panel--02">
+				<span id="img02" class="panel__02"></span>
+			</li>
+			<li id="imgCont_01" class="panel panel--01">
+				<span id="img01" class="panel__01"></span>
+			</li>
+		</ul>
 	</div>
 
 	<div id="indicator" class="indicator"></div>
