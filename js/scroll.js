@@ -5,8 +5,10 @@ document.addEventListener('DOMContentLoaded', function() {
 		imgCont_02 = document.getElementById('imgCont_02'),
 		overlay = document.getElementById('overlay'),
 		indicator = document.getElementById('indicator'),
+		indicatorHead = document.getElementById('indicatorHead'),
 		innerH,
 		rect,
+		rect_,
 		startingY = 0,
 		scAmount = 0,
 		scAmount2 = 0,
@@ -29,10 +31,15 @@ document.addEventListener('DOMContentLoaded', function() {
 
 	$(window).on("load resize", function() {
 		setDefaultHeight([img01, imgCont_01, img02, imgCont_02, container]);
-		rect = container.getBoundingClientRect();
-		scrollYonLoad = rect.top;
-		isPassed = rect.top < 0 ? true : false;
+		rect_ = container.getBoundingClientRect();
+		console.log('rect1 ' + rect_.top);
+		scrollYonLoad = rect_.top;
+		isPassed = rect_.top < 0 ? true : false;
 		console.log('isPassed on load? ' + isPassed);
+		indicatorHead.innerHTML = 'SECTION 1<br>';
+		indicatorHead.innerHTML += 'rect.top(onload) ' + rect_.top + '<br>';
+		indicatorHead.innerHTML += 'is01done ' + is01done + '<br>';
+		// detectIfcrossed();
 	});
 
 	function setDefaultHeight(arr) {
@@ -42,16 +49,22 @@ document.addEventListener('DOMContentLoaded', function() {
 	}
 
 	function detectIfcrossed() {
-		if (!is01done && !isPassed && rect.top < 0 && scrollDir === 'down') {
-			isCrossed = true;
-			lasthit = 'top';
-		}
-		else if (is01done && rect.top > 0 && scrollDir === 'up') {
-			isCrossed = true;
-			is01done = false;
-			lasthit = 'bottom';
-		}
-		isPassed = false;
+		// if(rect_) {
+			if (!is01done && !isPassed && rect.top < 0 && scrollDir === 'down') {
+				isCrossed = true;
+				lasthit = 'top';
+				_isPassed = false;
+				// isPassed = true;
+			}
+			else if (is01done && rect.top > 0 && scrollDir === 'up') {
+				isCrossed = true;
+				is01done = false;
+				lasthit = 'bottom';
+				_isPassed = false;
+				// isPassed = true;
+			}
+			// isPassed = false;
+		// }
 	}
 
 	function setConditionsWhenSlideEnd() {
@@ -74,7 +87,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
 	function slide(slide1, slide2) {
 		if (!isPassed && isCrossed && !is01done) {
-
+			console.log('hit 1');
+			console.log('rect1 ' + rect.top);
 			overlay.style.display = 'block';
 			container.style.position = 'fixed';
 
@@ -131,13 +145,6 @@ document.addEventListener('DOMContentLoaded', function() {
 			}
 
 			setCounter(counter);
-
-			indicator.innerHTML = 'Last hit: ' + lasthit + '<br>';
-			indicator.innerHTML += 'ImageHEIGHT: ' + imageHeight + '<br>';
-			indicator.innerHTML += 'Counter: ' + counter + '<br>';
-			indicator.innerHTML += 'ScAmount: ' + scAmount + '<br>';
-			indicator.innerHTML += 'ScAmount2: ' + scAmount2 + '<br>';
-			indicator.innerHTML += 'CSSprop ' + CSSprop + '<br>';
 			
 			//Leave slide mode
 			if ((lasthit === 'top' && (scAmount >= 200 || scAmount <= -1)) || (lasthit === 'bottom' && (scAmount >= 1 || scAmount <= -200))) {
@@ -149,12 +156,13 @@ document.addEventListener('DOMContentLoaded', function() {
 		}
 	}
 
-	window.addEventListener('scroll', function() {
+	window.addEventListener('wheel', function() {
 		currYPos = supportOffset ? window.pageYOffset : document.body.scrollTop;
 		rect = container.getBoundingClientRect();
 		scrollDir = lastKnownPos > currYPos ? 'up' : 'down';
 		lastKnownPos = currYPos;
 		detectIfcrossed();
+		console.log('is 1 Passed ' + isPassed);
 		if (!ticking) {
 			window.requestAnimationFrame(function() {
 				slide(imgCont_01, imgCont_02);
@@ -162,6 +170,19 @@ document.addEventListener('DOMContentLoaded', function() {
 			});
 		}
 		ticking = true;
+
+		indicator.innerHTML = `
+			is01done: ${is01done} <br>
+			rect.top: ${rect.top} <br>
+			Last hit: ${lasthit} <br>
+			imageHeight: ${imageHeight} <br>
+			counter: ${counter} <br>
+			scAmount: ${scAmount} <br>
+			scAmount2: ${scAmount2} <br>
+			CSSprop: ${CSSprop} <br>
+			isPassed: ${isPassed} <br>
+		`;
+
 	}, {
 		capture: true,
 		passive: true

@@ -1,0 +1,71 @@
+._parentContainer {
+	position: relative;
+	margin: 0 auto;
+	max-width: 1920px;
+	width: 100%;
+}
+._container {
+	position: relative;
+	left: 50%;
+	top: 0;
+	-ms-transform: translate(-50%, 0);
+		transform: translate(-50%, 0);
+	width: 100%;
+	max-width: 1920px;
+	z-index: 10;
+}
+._panel {
+	/*border-bottom: 6px solid #fff;*/
+	/*display: none;*/
+	
+	border-bottom: 6px solid red;
+	height: 100%;
+	left: 0;
+	overflow: hidden;
+	position: absolute;
+	top: 0;
+	width: 100%;
+}
+._panel span {
+	display: block;
+}
+._panel__01 {
+	background: url('../images/image-11.jpg') no-repeat top center;
+	/*background: url('https://picsum.photos/1000/300/') no-repeat top center;*/
+	background-size: cover;
+	height: 100%;
+	z-index: 12;
+}
+._panel__02 {
+	background: url('../images/image-12.jpg') no-repeat top center;
+	/*background: url('https://picsum.photos/1000/300/?random') no-repeat top center;*/
+	background-size: cover;
+	height: 100%;
+	z-index: 11;
+}
+._panel__03 {
+	background: url('../images/image-13.jpg') no-repeat top center;
+	background-size: cover;
+	height: 100%;
+	z-index: 10;
+}
+._overlay {
+	background: #fff;
+	height: 9999px;
+	left: 0;
+	opacity: 1;
+	position: absolute;
+	top: 0;
+	width: 100%;
+	z-index: 9;
+}
+._indicator {
+	background: rgba(255, 255, 255, .85);
+	font-size: 2rem;
+	padding: 12px;
+	position: fixed;
+	right: 100px;
+	top: 150px;
+	width: 30%;
+	z-index: 50;
+}

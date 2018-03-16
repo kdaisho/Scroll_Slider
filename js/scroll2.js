@@ -5,8 +5,10 @@ document.addEventListener('DOMContentLoaded', function() {
 		_imgCont_02 = document.getElementById('_imgCont_02'),
 		_overlay = document.getElementById('_overlay'),
 		_indicator = document.getElementById('_indicator'),
+		_indicatorHead = document.getElementById('_indicatorHead'),
 		_innerH,
 		_rect,
+		__rect,
 		_startingY = 0,
 		_scAmount = 0,
 		_scAmount2 = 0,
@@ -28,30 +30,42 @@ document.addEventListener('DOMContentLoaded', function() {
 		_counter = 0;
 
 	$(window).on("load resize", function() {
-		setDefaultHeight([_img01, _imgCont_01, img02, _imgCont_02, _container]);
-		_rect = _container.getBoundingClientRect();
-		_scrollYonLoad = _rect.top;
-		_isPassed = _rect.top < 0 ? true : false;
+		setDefaultHeight([_img01, _imgCont_01, _img02, _imgCont_02, _container]);
+		__rect = _container.getBoundingClientRect();
+		console.log('rect2 ' + __rect.top);
+		_scrollYonLoad = __rect.top;
+		_isPassed = __rect.top < 0 ? true : false;
 		console.log('_isPassed on load? ' + _isPassed);
+		_indicatorHead.innerHTML += 'SECTION 2<br>';
+		_indicatorHead.innerHTML += '__rect.top(onload) ' + __rect.top + '<br>';
+		_indicatorHead.innerHTML += '_is01done ' + _is01done + '<br>';
 	});
 
 	function setDefaultHeight(arr) {
-		for (var i = 0, _innerH = window._innerHeight, len = arr.length; i < len; i++) {
+		for (var i = 0, _innerH = window.innerHeight, len = arr.length; i < len; i++) {
 			arr[i].style.height = _innerH + 'px';
 		}
 	}
 
 	function detectIfcrossed() {
-		if (!_is01done && !_isPassed && _rect.top < 0 && _scrollDir === 'down') {
-			_isCrossed = true;
-			_lasthit = 'top';
-		}
-		else if (_is01done && _rect.top > 0 && _scrollDir === 'up') {
-			_isCrossed = true;
-			_is01done = false;
-			_lasthit = 'bottom';
-		}
-		_isPassed = false;
+		console.log('=rect.top ' + _rect.top);
+		// if(__rect) {
+			// if (!_is01done && !_isPassed && _rect.top < 0 && _scrollDir === 'down') {
+			// if (!_is01done && !_isPassed && _rect.top < 0) {
+			// if (!_is01done && _isPassed && _rect.top < 0 && _scrollDir === 'down') {
+			if (!_is01done && _isPassed && _rect.top < 0 && _scrollDir === 'down') {
+				_isCrossed = true;
+				_lasthit = 'top';
+				_isPassed = false;
+			}
+			else if (_is01done && _rect.top > 0 && _scrollDir === 'up') {
+				_isCrossed = true;
+				_is01done = false;
+				_lasthit = 'bottom';
+				_isPassed = false;
+			}
+			// _isPassed = false;
+		// }
 	}
 
 	function setConditionsWhenSlideEnd() {
@@ -74,6 +88,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
 	function slide(slide1, slide2) {
 		if (!_isPassed && _isCrossed && !_is01done) {
+			console.log('hit 2');
+			console.log('rect2 ' + _rect.top);
 
 			_overlay.style.display = 'block';
 			_container.style.position = 'fixed';
@@ -131,13 +147,6 @@ document.addEventListener('DOMContentLoaded', function() {
 			}
 
 			set_counter(_counter);
-
-			_indicator.innerHTML = 'Last hit: ' + _lasthit + '<br>';
-			_indicator.innerHTML += '_imageHeight: ' + _imageHeight + '<br>';
-			_indicator.innerHTML += '_counter: ' + _counter + '<br>';
-			_indicator.innerHTML += '_scAmount: ' + _scAmount + '<br>';
-			_indicator.innerHTML += '_scAmount2: ' + _scAmount2 + '<br>';
-			_indicator.innerHTML += '_CSSprop ' + _CSSprop + '<br>';
 			
 			//Leave slide mode
 			if ((_lasthit === 'top' && (_scAmount >= 200 || _scAmount <= -1)) || (_lasthit === 'bottom' && (_scAmount >= 1 || _scAmount <= -200))) {
@@ -149,7 +158,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		}
 	}
 
-	window.addEventListener('scroll', function() {
+	window.addEventListener('wheel', function() {
 		_currYPos = _supportOffset ? window.pageYOffset : document.body.scrollTop;
 		_rect = _container.getBoundingClientRect();
 		_scrollDir = _lastKnownPos > _currYPos ? 'up' : 'down';
@@ -162,6 +171,19 @@ document.addEventListener('DOMContentLoaded', function() {
 			});
 		}
 		_ticking = true;
+
+		_indicator.innerHTML = `
+			_is01done: ${_is01done} <br>
+			_rect.top: ${_rect.top} <br>
+			Last hit: ${_lasthit} <br>
+			_imageHeight: ${_imageHeight} <br>
+			_counter: ${_counter} <br>
+			_scAmount: ${_scAmount} <br>
+			_scAmount2: ${_scAmount2} <br>
+			_CSSprop: ${_CSSprop} <br>
+			_isPassed: ${_isPassed} <br>
+		`;
+
 	}, {
 		capture: true,
 		passive: true
