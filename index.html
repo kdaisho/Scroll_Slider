@@ -106,7 +106,7 @@ html, body {
 <article class="use-fluid-grid">
 
     <div class="otherElements">
-		 1 sunt in culpa qui officia deserunt mollit anim id est laborum ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. sunt in culpa qui officia deserunt mollit anim id est laborum ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+		 sunt in culpa qui officia deserunt mollit anim id est laborum ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. sunt in culpa qui officia deserunt mollit anim id est laborum ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 		 unt in culpa qui officia deserunt mollit anim id est laborum ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
 	</div>
 	
@@ -135,160 +135,188 @@ html, body {
 </article>
 
 <script>
-function Scroll_Slide() {
-		this.img01 = document.getElementById('img01'),
-		this.img02 = document.getElementById('img02'),
-		this.container = document.getElementById('container'),
-		this.imgCont_01 = document.getElementById('imgCont_01'),
-		this.imgCont_02 = document.getElementById('imgCont_02'),
-		this.overlay = document.getElementById('overlay'),
-		this.indicator = document.getElementById('indicator'),
-		this.innerH,
-		this.rect,
-		this.startingY = 0,
-		this.scAmount = 0,
-		this.scAmount2 = 0,
-		this.scrollDir,
-		this.CSSprop,
-		this.isAnimate = false,
-		this.isPassed,
-		// this.supportOffset = window.pageYOffset !== undefined,
-		this.lastKnownPos = 0,
-		this.ticking = false,
-		this.scrollDir,
-		this.currYPos,
-		this.is01done = false,
-		this.scrollYonLoad,
-		this.isCrossed = false,
-		this.imageHeight = 100,
-		this.reverse = false,
-		this.lasthit,
-		this.counter = 0;
+document.addEventListener('DOMContentLoaded', function() {
+	var img01 = document.getElementById('img01'),
+		container = document.getElementById('container'),
+		imgCont_01 = document.getElementById('imgCont_01'),
+		imgCont_02 = document.getElementById('imgCont_02'),
+		overlay = document.getElementById('overlay'),
+		indicator = document.getElementById('indicator'),
+		innerH,
+		rect,
+		startingY = 0,
+		scAmount = 0,
+		scAmount2 = 0,
+		scrollDir,
+		CSSprop,
+		isAnimate = false,
+		isPassed,
+		supportOffset = window.pageYOffset !== undefined,
+		lastKnownPos = 0,
+		ticking = false,
+		scrollDir,
+		currYPos,
+		is01done = false,
+		scrollYonLoad,
+		isCrossed = false,
+		imageHeight = 100,
+		reverse = false,
+		lasthit,
+		counter = 0;
 
-		this.init();
-		// this.setDefaultHeight();
-		alert('img01 height' + img01.style.height);
-}
+	$(window).on("load resize", function() {
+		setDefaultHeight([img01, imgCont_01, img02, imgCont_02, container]);
+		rect = container.getBoundingClientRect();
+		scrollYonLoad = rect.top;
+		isPassed = rect.top < 0 ? true : false;
+		console.log('isPassed on load? ' + isPassed);
+	});
 
-// Scroll_Slide.prototype.init = function() {
-
-// };
-
-Scroll_Slide.prototype.setDefaultHeight = function(arr) {
-	alert('set height' + arr);
-	// this.innerH = window.innerHeight;
-	// alert('height' + this.innerH);
-	// // for (var i = 0, len = arr.length; i < len; i++) {
-	// // 	arr[i].style.height = this.innerH + 'px';
-	// // }
-	// alert('height obj ' + this.img01);
-	// this.img01.style.height = this.innerH;
-	// this.imgCont_01.style.height = this.innerH;
-	// this.img02.style.height = this.innerH;
-	// this.imgCont_02.style.height = this.innerH;
-	// this.container.style.height = this.innerH;
-	alert('height2 ' + this.img01.style.height);
-	// this.img01.height = this.imgCont_01.height = this.img02.height = this.imgCont_02.height = this.container.height = this.innerH;
-};
-
-Scroll_Slide.prototype.detectIfcrossed = function() {
-	if (!this.is01done && !this.isPassed && this.rect.top < 0 && this.scrollDir === 'down') {
-		this.isCrossed = true;
-		this.lasthit = 'top';
-	}
-	else if (this.is01done && this.rect.top > 0 && this.scrollDir === 'up') {
-		this.isCrossed = true;
-		this.is01done = false;
-		this.lasthit = 'bottom';
-	}
-	this.isPassed = false;
-};
-
-Scroll_Slide.prototype.setConditionsWhenSlideEnd = function() {
-	this.reverse = scrollDir === 'up' ? true : false;
-	this.imageHeight = !reverse ? 0 : 100;
-	this.is01done = !reverse ? true : false;
-	this.isCrossed = isAnimate = false;
-	this.isCrossed = false;
-	this.scAmount = 0;
-
-};
-
-Scroll_Slide.prototype.setCounter = function(x) {
-	if (x === 0 && this.CSSprop <= 1) {
-		this.counter++;
-	}
-	else if (x === 1 && this.CSSprop >= 100) {
-		this.counter--;
-	}
-};
-
-Scroll_Slide.prototype.slide = function(slide1, slide2) {
-	if (!this.isPassed && this.isCrossed && !this.is01done) {
-
-		overlay.style.display = 'block';
-		container.style.position = 'fixed';
-
-		if (this.isAnimate === false) {
-			this.startingY = window.pageYOffset;
-			this.isAnimate = true;
+	function setDefaultHeight(arr) {
+		for (var i = 0, innerH = window.innerHeight, len = arr.length; i < len; i++) {
+			arr[i].style.height = innerH + 'px';
 		}
+	}
 
-		this.scAmount = (window.pageYOffset - parseInt(this.startingY))/10;
-
-		this.CSSprop = this.imageHeight - this.scAmount;
-
-
-		//forward
-		if (this.lasthit === 'top') {
-
-			if (this.counter === 0) {
-				slide1.style.height = this.CSSprop + '%';
-			}
-
-			if (this.counter === 1) {
-				this.CSSprop = 100;
-				this.scAmount2 = this.scAmount - 100;
-				this.CSSprop = 100 - this.scAmount2;
-				
-				if (this.scAmount2 >= 0) slide2.style.height = this.CSSprop + '%';
-
-				this.CSSprop = Math.abs(this.scAmount2);
-
-				if (this.scAmount2 <= 1) slide1.style.height = this.CSSprop + '%';
-			}
+	function detectIfcrossed() {
+		if (!is01done && !isPassed && rect.top < 0 && scrollDir === 'down') {
+			isCrossed = true;
+			lasthit = 'top';
 		}
+		else if (is01done && rect.top > 0 && scrollDir === 'up') {
+			isCrossed = true;
+			is01done = false;
+			lasthit = 'bottom';
+		}
+		isPassed = false;
+	}
 
+	function setConditionsWhenSlideEnd() {
+		reverse = scrollDir === 'up' ? true : false;
+		imageHeight = !reverse ? 0 : 100;
+		is01done = !reverse ? true : false;
+		isCrossed = isAnimate = false;
+		isCrossed = false;
+		scAmount = 0;
+	}
 
-		//reverse
-		if (this.lasthit === 'bottom') {
+	function setCounter(x) {
+		if (x === 0 && CSSprop <= 1) {
+			counter++;
+		}
+		else if (x === 1 && CSSprop >= 100) {
+			counter--;
+		}
+	}
 
-			if (this.counter === 1) {
-				this.CSSprop = Math.abs(this.CSSprop);
-				slide2.style.height = this.CSSprop + '%';
+	function slide(slide1, slide2) {
+		if (!isPassed && isCrossed && !is01done) {
+
+			overlay.style.display = 'block';
+			container.style.position = 'fixed';
+
+			if (isAnimate === false) {
+				startingY = window.pageYOffset;
+				isAnimate = true;
 			}
 
-			if (this.counter === 0) {
+			scAmount = (window.pageYOffset - parseInt(startingY))/10;
 
-				this.CSSprop -= 100;
+			CSSprop = imageHeight - scAmount;
 
-				slide1.style.height = this.CSSprop + '%';
 
-				if (this.scAmount >= -100) {
-					this.CSSprop = 100 - Math.abs(this.CSSprop);
-					slide2.style.height = this.CSSprop + '%';
+			//forward
+			if (lasthit === 'top') {
+
+				if (counter === 0) {
+					slide1.style.height = CSSprop + '%';
+				}
+
+				if (counter === 1) {
+					CSSprop = 100;
+					scAmount2 = scAmount - 100;
+					CSSprop = 100 - scAmount2;
+
+					if (scAmount2 >= 0) slide2.style.height = CSSprop + '%';
+
+					CSSprop = Math.abs(scAmount2);
+
+					if (scAmount2 <= 1) slide1.style.height = CSSprop + '%';
 				}
 			}
+
+
+			//reverse
+			if (lasthit === 'bottom') {
+
+				if (counter === 1) {
+					CSSprop = Math.abs(CSSprop);
+					slide2.style.height = CSSprop + '%';
+				}
+
+				if (counter === 0) {
+
+					CSSprop -= 100;
+
+					slide1.style.height = CSSprop + '%';
+
+					if (scAmount >= -100) {
+						CSSprop = 100 - Math.abs(CSSprop);
+						slide2.style.height = CSSprop + '%';
+					}
+				}
+			}
+
+			setCounter(counter);
+
+			indicator.innerHTML = 'Last hit: ' + lasthit + '<br>';
+			indicator.innerHTML += 'ImageHEIGHT: ' + imageHeight + '<br>';
+			indicator.innerHTML += 'Counter: ' + counter + '<br>';
+			indicator.innerHTML += 'ScAmount: ' + scAmount + '<br>';
+			indicator.innerHTML += 'ScAmount2: ' + scAmount2 + '<br>';
+			indicator.innerHTML += 'CSSprop ' + CSSprop + '<br>';
+
+			//Leave slide mode
+			if ((lasthit === 'top' && (scAmount >= 200 || scAmount <= -1)) || (lasthit === 'bottom' && (scAmount >= 1 || scAmount <= -200))) {
+				setConditionsWhenSlideEnd();
+				container.style.position = 'relative';
+				overlay.style.display = 'none';
+				container.scrollIntoView();
+			}
 		}
+	}
 
-		this.setCounter(this.counter);
+	window.addEventListener('scroll', function() {
+		currYPos = supportOffset ? window.pageYOffset : document.body.scrollTop;
+		rect = container.getBoundingClientRect();
+		scrollDir = lastKnownPos > currYPos ? 'up' : 'down';
+		lastKnownPos = currYPos;
+		detectIfcrossed();
+		if (!ticking) {
+			window.requestAnimationFrame(function() {
+				slide(imgCont_01, imgCont_02);
+				ticking = false;
+			});
+		}
+		ticking = true;
+	}, {
+		capture: true,
+		passive: true
+	});
+});
+</script>
 
-		indicator.innerHTML = 'Last hit: ' + this.lasthit + '<br>';
-		indicator.innerHTML += 'ImageHEIGHT: ' + this.imageHeight + '<br>';
-		indicator.innerHTML += 'Counter: ' + this.counter + '<br>';
-		indicator.innerHTML += 'ScAmount: ' + this.scAmount + '<br>';
-		indicator.innerHTML += 'ScAmount2: ' + this.scAmount2 + '<br>';
-		indicator.innerHTML += 'CSSprop ' + this.CSSprop + '<br>';
+					<!-- #################### -->
+					<!--/ Content slot markup -->
+					<!-- #################### -->
+				</div>
+			</div>
+		</div>
+	</div>
+
+</body>
+
+</html>
 		
 		//Leave slide mode
 		if ((this.lasthit === 'top' && (this.scAmount >= 200 || this.scAmount <= -1)) || (this.lasthit === 'bottom' && (this.scAmount >= 1 || this.scAmount <= -200))) {
